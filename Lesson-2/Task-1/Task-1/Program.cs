@@ -8,7 +8,7 @@ namespace Task_1
 {
     class Program
     {
-        enum months { 
+        public enum months { 
             January=1, 
             Februry = 2, 
             March = 3,
@@ -51,14 +51,14 @@ namespace Task_1
             Console.WriteLine($"Average temperature of the day = {average}");
             do
             {
-                Console.Write("Please enter a number of current month: ");
+                Console.Write("Please enter a number of current month (1..12): ");
                 string monStr = Console.ReadLine();
                 monBool = Int32.TryParse(monStr, out mon);
-                if (monBool == false)
+                if (monBool == false || mon>12 || mon<0)
                 {
                     Console.WriteLine("Incorrected value of number. Try again");
                 }
-            } while (monBool == false);
+            } while (monBool == false || mon>12 || mon<0);
             Console.WriteLine("month is: {0}", Enum.GetName(typeof(months), mon));
             switch (mon)
             {
