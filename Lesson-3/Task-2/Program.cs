@@ -18,14 +18,14 @@ namespace Task_2
                 Console.Write($"Enter {i} name");
                 phone[i, 1] = Console.ReadLine();
             }
-            Console.WriteLine({(0,0)} {(1,15)}"Phone/email", "name");
+            Console.WriteLine("{0,0} {1,15}", "Phone/email", "name");
             for (int i=0; i<phone.GetLength(0); i++)
             {
                 for (int j=0; j<phone.GetLength(1); j++)
                 {
-                    Console.Write(phone[i, j], "       ");
+                    Console.Write($"{phone[i, j]}\t\t\t");
                 }
-                Console.WriteLine("\t");
+                Console.WriteLine();
             }
             Console.ReadKey();
         }
