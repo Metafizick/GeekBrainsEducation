@@ -12,13 +12,13 @@ namespace Task_1
             for (int i = 0; i < users.GetLength(0); i++)
             {
                 Console.WriteLine($"Entering {i+1} user");
-                string name1 = GetUserName();
-                string surname1 = GetUserSurname();
-                string patronomic1 = GetUserPatronomic();
-                string user1 = GetFullName(name1, surname1, patronomic1);
-                users[i] = user1;
-                string userSuccess1 = userComplete(users[i]);
-                Console.WriteLine(userSuccess1);
+                string name = GetUserName();
+                string surname = GetUserSurname();
+                string patronomic = GetUserPatronomic();
+                string user = GetFullName(name, surname, patronomic);
+                users[i] = user;
+                string userSuccess = userComplete(users[i]);
+                Console.WriteLine(userSuccess);
             }
             Console.WriteLine("Let's see full lisr of users!");
             for (int i = 0; i<users.GetLength(0); i++)
