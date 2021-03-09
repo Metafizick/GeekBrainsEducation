@@ -17,7 +17,7 @@ namespace Task_1
                 string patronomic = GetUserPatronomic();
                 string user = GetFullName(name, surname, patronomic);
                 users[i] = user;
-                string userSuccess = userComplete(users[i]);
+                string userSuccess = UserComplete(users[i]);
                 Console.WriteLine(userSuccess);
             }
             Console.WriteLine("Let's see full lisr of users!");
@@ -49,7 +49,7 @@ namespace Task_1
             string fullName = userSurname + " " + userName + " " + userPatronomic;
             return fullName;
         }
-        static string userComplete(string fullName)
+        static string UserComplete(string fullName)
         {
             return $"User {fullName} successfully entered!";
         }
