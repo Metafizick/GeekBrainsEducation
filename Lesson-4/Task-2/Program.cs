@@ -23,7 +23,7 @@ namespace Task_2
                     {
                         sum += numb;
                     }
-                    else
+                    else if (sumstr !="")
                     {
                         Console.WriteLine($"{sumstr} not a number");
                     }
@@ -37,7 +37,7 @@ namespace Task_2
                 {
                     sum += numb;
                 }
-                else
+                else 
                 {
                     Console.WriteLine($"{sumstr} not a number");
                 }
