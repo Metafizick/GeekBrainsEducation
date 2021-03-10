@@ -6,36 +6,38 @@ namespace Task_2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Please, enter numbers");
-            string numbers = Console.ReadLine();
-            int sum = 0;
-            string sumstr = "";
-            for (int i = 0; i<numbers.Length; i++)
             {
-                if (numbers[i] != ' '| i == numbers.Length - 1)
+                Console.WriteLine("Please, enter numbers");
+                string numbers = Console.ReadLine();
+                int sum = 0;
+                string sumstr = "";
+                for (int i = 0; i < numbers.Length; i++)
                 {
-                    sumstr += Convert.ToString(numbers[i]);
-                }
-                else
-                {
-                    (int numb, bool numbool) = ConvNumb(sumstr);
-                    if (numbool)
+                    if (numbers[i] != ' ' | i == numbers.Length - 1)
                     {
-                        sum += numb;
+                        sumstr += Convert.ToString(numbers[i]);
                     }
                     else
                     {
-                        Console.WriteLine($"{sumstr} not a number");
+                        (int numb, bool numbool) = ConvNumb(sumstr);
+                        if (numbool)
+                        {
+                            sum += numb;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{sumstr} not a number");
+                        }
+                        sumstr = "";
                     }
-                    sumstr = "";
                 }
+                Console.WriteLine(sum);
             }
-            Console.WriteLine(sum);
-        }
-        static (int numb, bool numbool) ConvNumb (string num)
-        {
-            bool numbool = int.TryParse(num, out int numb);
-            return (numb, numbool);
+            static (int numb, bool numbool) ConvNumb(string num)
+            {
+                bool numbool = int.TryParse(num, out int numb);
+                return (numb, numbool);
+            }
         }
     }
 }
