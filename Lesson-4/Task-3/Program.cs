@@ -11,8 +11,8 @@ namespace Task_3
         static void Main(string[] args)
         {
             Console.WriteLine("Please, enter a number of month");
-            int a = Program.EnterMonth();
-            Console.WriteLine(a);
+            int mon = EnterMonth();
+            Console.WriteLine($"Your season is {FromMonthToSeasons(mon)}");
         }
         public static Int32  EnterMonth()
         {
@@ -20,7 +20,6 @@ namespace Task_3
             int mon;
             do
             {
-                Console.Write("Please enter a number of current month (1..12): ");
                 string monStr = Console.ReadLine();
                 monBool = Int32.TryParse(monStr, out mon);
                 if (monBool == false || mon > 12 || mon < 0)
@@ -29,6 +28,27 @@ namespace Task_3
                 }
             } while (monBool == false || mon > 12 || mon < 0);
             return mon;
+        }
+        public static Seasons FromMonthToSeasons(int mon)
+        {
+            switch (mon)
+            {
+                case 1:
+                case 2:
+                case 12:
+                    return Seasons.Winter;
+                case 3:
+                case 4:
+                case 5:
+                    return Seasons.Spring;
+                case 6:
+                case 7:
+                case 8:
+                    return Seasons.Summer;
+                default:
+                    return Seasons.Autumn;
+
+            }
         }
     }
 }
