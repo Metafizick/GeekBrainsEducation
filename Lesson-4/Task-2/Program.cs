@@ -12,11 +12,11 @@ namespace Task_2
             string sumstr = "";
             for (int i = 0; i<numbers.Length; i++)
             {
-                if (numbers[i] != ' '| i == numbers.Length - 1)
+                if (numbers[i] != ' ' )
                 {
                     sumstr += Convert.ToString(numbers[i]);
                 }
-                else
+                else 
                 {
                     (int numb, bool numbool) = ConvNumb(sumstr);
                     if (numbool)
@@ -30,7 +30,22 @@ namespace Task_2
                     sumstr = "";
                 }
             }
-            Console.WriteLine(sum);
+            if (sumstr != "")
+            {
+                (int numb, bool numbool) = ConvNumb(sumstr);
+                if (numbool)
+                {
+                    sum += numb;
+                }
+                else
+                {
+                    Console.WriteLine($"{sumstr} not a number");
+                }
+                sumstr = "";
+            }
+
+            Console.WriteLine($"The amount of numbers:{sum}");
+            Console.ReadKey();
         }
         static (int numb, bool numbool) ConvNumb (string num)
         {
