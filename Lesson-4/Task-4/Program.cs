@@ -30,11 +30,15 @@ namespace Task_4
         }
         public static int Fibonacci(int numb)
         {
-            if (numb == 0)
+            if (numb == 1)
             {
-                return numb;
+                return 0;
             }
-            return Fibonacci(numb - 1) + Fibonacci(numb - 2);
+            else if (numb == 2)
+            {
+                return 1;
+            }
+            return Fibonacci (numb-2)  + Fibonacci(numb - 1);
         }
     }
 }
