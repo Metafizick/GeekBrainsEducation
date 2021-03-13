@@ -8,7 +8,15 @@ namespace Task_4
         {
             Console.WriteLine("Hello World!");
             int number = EntNumb();
-            int fibNumber = Fibonacci(number);
+            int fibNumber;
+            if (number>=0)
+            {
+                fibNumber = FibonacciPos(number);
+            }else
+            {
+                fibNumber = FibonacciNeg(number);
+            }
+             
             Console.WriteLine($"Fibonacci number from {number} = {fibNumber}"); 
 
         }
@@ -28,17 +36,29 @@ namespace Task_4
             while (numBool == false);
             return num;
         }
-        public static int Fibonacci(int numb)
+        public static int FibonacciPos(int numb)
         {
-            if (numb == 1)
+            if (numb == 0)
             {
                 return 0;
             }
-            else if (numb == 2)
+            else if (numb == 1)
             {
                 return 1;
             }
-            return Fibonacci (numb-2)  + Fibonacci(numb - 1);
+            return FibonacciPos (numb-2)  + FibonacciPos(numb - 1);
+        }
+        public static int FibonacciNeg(int numb)
+        {
+            if (numb == -1)
+            {
+                return -1;
+            }
+            else if (numb == -2)
+            {
+                return -1;
+            }
+            return FibonacciNeg(numb + 2) + FibonacciNeg(numb + 1);
         }
     }
 }
