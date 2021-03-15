@@ -6,7 +6,7 @@ namespace Task_3
     {
         static void Main(string[] args)
         {
-            string word = "Hello";
+            string word = Console.ReadLine();
             Console.Write($"{word} inverted is ");
             for (int i = word.Length-1; i>=0; i--)
             {
