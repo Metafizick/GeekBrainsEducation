@@ -8,7 +8,7 @@ namespace Task_2
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            string date = Convert.ToString(DateTime.Today);
+            string date = Convert.ToString(DateTime.Now);
             File.WriteAllText("startup.txt", date);
             Console.WriteLine(File.ReadAllText("startup.txt"));
         }
