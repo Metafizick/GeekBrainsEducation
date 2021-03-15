@@ -9,7 +9,7 @@ namespace Task_1
         {
             Console.WriteLine("Hello, write something, please");
             File.WriteAllText("textFile.txt", Console.ReadLine());
-            string text = File.ReadAllText("textFile");
+            string text = File.ReadAllText("textFile.txt");
             Console.WriteLine(text);
         }
     }
