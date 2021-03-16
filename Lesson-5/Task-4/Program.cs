@@ -8,7 +8,7 @@ namespace Task_4
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            string workDir = @"C:\";
+            string workDir = @"C:\World of Warcraft";
             string[] entries = Directory.GetFileSystemEntries(workDir, "*", SearchOption.AllDirectories);
             for (int i = 0; i < entries.Length; i++)
             {
