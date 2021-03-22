@@ -1,21 +1,23 @@
 ﻿using System;
 using System.IO;
 
-namespace Task_4
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+        string dir = @"C:\";
+        try
         {
-            Console.WriteLine("Hello World!");
-            string workDir = @"C:\World of Warcraft";
-            string[] entries = Directory.GetFileSystemEntries(workDir, "*", SearchOption.AllDirectories);
-            for (int i = 0; i < entries.Length; i++)
+            string[] dirs = Directory.GetDirectories(dir, "*", SearchOption.TopDirectoryOnly);
+            Console.WriteLine("The number of directories {0}.", dirs.Length);
+            foreach (string di in dirs)
             {
-                Console.WriteLine(entries[i]);
+                Console.WriteLine(di);
             }
-
         }
-
+        catch (Exception e)
+        {
+            Console.WriteLine("The process failed: {0}", e.ToString());
+        }
     }
 }
