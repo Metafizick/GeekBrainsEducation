@@ -20,7 +20,7 @@ namespace Task_5
                 var inputword = Console.ReadLine();
                 switch (inputword)
                 {
-                    case "Esc":
+                    case "esc":
                         Console.WriteLine("See you later");
                         foreach (ToDo item in tasklist.Tasks)
                         {
