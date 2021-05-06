@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using System.IO;
+using System.Linq;
 
 namespace Task_5
 {
@@ -23,6 +24,11 @@ namespace Task_5
         {
             Tasks[number-1].Title = "[x]" + " " + Tasks[number - 1].Title;
             Tasks[number - 1].IsDone = true;
+        }
+        public List<ToDo> DeleteIsDone (List<ToDo> list)
+        {
+            list.RemoveAll(o => o.IsDone == true);
+            return list;
         }
     }
 }

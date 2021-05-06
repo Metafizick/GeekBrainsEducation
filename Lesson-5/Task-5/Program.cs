@@ -22,11 +22,7 @@ namespace Task_5
                 {
                     case "esc":
                         Console.WriteLine("See you later");
-                        foreach (ToDo item in tasklist.Tasks)
-                        {
-                            if (item.IsDone)
-                                tasklist.Tasks.Remove(item);
-                        }
+                        tasklist.DeleteIsDone(tasklist.Tasks);
                         string json = JsonSerializer.Serialize(tasklist.Tasks);
                         File.WriteAllText("Tasks.json", json);
                         return;
