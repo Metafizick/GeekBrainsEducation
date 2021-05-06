@@ -6,46 +6,11 @@ using System.Threading.Tasks;
 
 namespace Task_1
 {
-    public class Node: ILinkedList
+    public class Node
     {
         public int Value { get; set; }
         public Node NextNode { get; set; }
-        public Node PrevNode { get; set; }
-
-        Node startnode = new Node {Value = 0, PrevNode = null};
-        Node lastnode = new Node { Value = 100, NextNode = null};
-
-        public void AddNode(int value)
-        {
-            var newNode = new Node {Value = value};
-            newNode.PrevNode = lastnode;
-            newNode.lastnode = null;
-        }
-
-        public void AddNodeAfter(Node node, int value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Node FindNode(int searchValue)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int GetCount()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveNode(int index)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveNode(Node node)
-        {
-            throw new NotImplementedException();
-        }
+        public Node PrevNode { get; set; }        
     }
 
     //Начальную и конечную ноду нужно хранить в самой реализации интерфейса
@@ -63,6 +28,28 @@ namespace Task_1
     {
         static void Main(string[] args)
         {
+            var startnode = new Node { Value = 1, PrevNode = null };
+            var lastnode = new Node { Value = 2, NextNode = null, PrevNode = startnode };
+            startnode.NextNode = lastnode;
+            LinkedList linkedList = new LinkedList(startnode, lastnode);
+            linkedList.AddNode(3);
+            linkedList.AddNode(4);
+            linkedList.AddNode(5);
+            linkedList.AddNode(6);
+            linkedList.AddNode(7);
+            linkedList.AddNode(9);
+            linkedList.AddNodeAfter(startnode.NextNode.NextNode.NextNode.NextNode.NextNode.NextNode, 8);
+            var searchNode = linkedList.FindNode(6);
+            Console.WriteLine($"Searching value = {searchNode.Value}");
+            Console.WriteLine("List before Remove");
+            Console.WriteLine($"List count = {linkedList.GetCount()}");
+            linkedList.ShowList();
+            linkedList.RemoveNode(searchNode);
+            linkedList.RemoveNode(5);
+            Console.WriteLine("List after Remove");
+            Console.WriteLine($"List count = {linkedList.GetCount()}");
+            linkedList.ShowList();           
+            Console.ReadKey();
         }
     }
 }
