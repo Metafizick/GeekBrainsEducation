@@ -7,22 +7,19 @@ namespace Lesson_1
 {
     public class TemperatureList
     {
-        public List<WeatherForecast> weatherForecasts { get; set; }
-        public TemperatureList()
-        {
-
-        }
+        public List<WeatherForecast> WeatherForecasts { get; set; }
+        
         internal void Add(WeatherForecast weatherForecast)
         {
-            weatherForecasts.Add(weatherForecast);
+            WeatherForecasts.Add(weatherForecast);
         }
         internal List<WeatherForecast> Get (DateTime startTime, DateTime endTime)
         {
             List<WeatherForecast> resultList = new List<WeatherForecast>();
-            for (int i = 0; i < weatherForecasts.Count; i++)
+            for (int i = 0; i < WeatherForecasts.Count; i++)
             {
-                if (weatherForecasts[i].Date <= endTime && weatherForecasts[i].Date >= startTime)
-                    resultList.Add(weatherForecasts[i]);
+                if (WeatherForecasts[i].Date <= endTime && WeatherForecasts[i].Date >= startTime)
+                    resultList.Add(WeatherForecasts[i]);
                
             }
             return resultList;
@@ -30,19 +27,19 @@ namespace Lesson_1
         }
         internal void Update(DateTime currentTime, int newTemperature)
         {
-            for (int i = 0; i < weatherForecasts.Count; i++)
+            for (int i = 0; i < WeatherForecasts.Count; i++)
             {
-                if (weatherForecasts[i].Date == currentTime )
-                    weatherForecasts[i].TemperatureC = newTemperature;
+                if (WeatherForecasts[i].Date == currentTime )
+                    WeatherForecasts[i].TemperatureC = newTemperature;
 
             }
         }
         internal void Delete(DateTime startTime, DateTime endTime)
         {
-            for (int i = 0; i < weatherForecasts.Count; i++)
+            for (int i = 0; i < WeatherForecasts.Count; i++)
             {
-                if (weatherForecasts[i].Date <= endTime && weatherForecasts[i].Date >= startTime)
-                    weatherForecasts.Remove(weatherForecasts[i]);
+                if (WeatherForecasts[i].Date <= endTime && WeatherForecasts[i].Date >= startTime)
+                    WeatherForecasts.Remove(WeatherForecasts[i]);
 
             }
            
