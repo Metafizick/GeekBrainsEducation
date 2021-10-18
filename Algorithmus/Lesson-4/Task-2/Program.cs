@@ -27,6 +27,7 @@ namespace Task_2
             
             }
             newTree.PreOrderTravers(newTree.head);
+            Console.WriteLine();
             //int search = new Random().Next(20);
             int search = 4;
             var searchNodeByBfs = newTree.GetNodeByBfs(newTree.head, search);
