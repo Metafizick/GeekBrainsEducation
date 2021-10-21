@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 public class BinaryTree
 {
 	public Node head { get; set; }
@@ -164,6 +164,50 @@ public class BinaryTree
                 Console.Write(")");
             }
         }
+    }
+    public Node GetNodeByBfs(Node head, int value)
+    {
+        var treeQueue = new Queue<Node>();
+        treeQueue.Enqueue(head);
+        while (treeQueue.Count!=0)
+        {
+            var searchItem = treeQueue.Dequeue();
+            Console.WriteLine(searchItem.Data);
+            if (searchItem.Data == value)
+                return searchItem;
+            else if ((searchItem.Left != null) || (searchItem.Right != null))
+                {
+                if (searchItem.Left != null)
+                treeQueue.Enqueue(searchItem.Left);
+                if (searchItem.Right != null)
+                treeQueue.Enqueue(searchItem.Right);
+                
+                }
+        }Console.WriteLine("Searcable item not found");
+        return null;
+    }
+    public Node GetNodeByDfs(Node head, int value)
+    {
+        var treeStack = new Stack<Node>();
+        treeStack.Push(head);
+        while (treeStack.Count != 0)
+        {
+            var searchItem = treeStack.Pop();
+            Console.WriteLine(searchItem.Data);
+            if (searchItem.Data == value)
+                return searchItem;
+            else if ((searchItem.Left != null) || (searchItem.Right != null))
+            {
+                if (searchItem.Right != null)
+                    treeStack.Push(searchItem.Right); 
+                if (searchItem.Left != null)
+                    treeStack.Push(searchItem.Left);
+                
+
+            }
+        }
+        Console.WriteLine("Searcable item not found");
+        return null;
     }
 }
 
