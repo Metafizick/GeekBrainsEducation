@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MetricsAgent.DAL;
+using MetricsAgent.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,10 +15,12 @@ namespace MetricsAgent.Controllers
     public class HddMetricsAgentController : ControllerBase
     {
         private readonly ILogger<HddMetricsAgentController> _logger;
-        public HddMetricsAgentController(ILogger<HddMetricsAgentController> logger)
+        private readonly IRepository<HddMetric> __hddMetricsAgentRepository;
+        public HddMetricsAgentController(ILogger<HddMetricsAgentController> logger, IRepository<HddMetric> hddMetricsAgentRepository)
         {
             _logger = logger;
             _logger.LogDebug(1, "NLog встроен в HddMetricsAgentController");
+            __hddMetricsAgentRepository = hddMetricsAgentRepository;
         }
         [HttpGet("from/{fromTime}/to/{toTime}")]
         public IActionResult GetMetricsFromAgent([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)

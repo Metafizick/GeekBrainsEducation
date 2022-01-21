@@ -29,6 +29,10 @@ namespace MetricsAgent
         {
             services.AddControllers();
             services.AddSingleton<IRepository<CpuMetric>, CpuMetricsAgentRepository>();
+            services.AddSingleton<IRepository<DotNetMetric>, DotNetMetricsAgentRepository>();
+            services.AddSingleton<IRepository<HddMetric>, HddMetricsAgentRepository>();
+            services.AddSingleton<IRepository<NetworkMetric>, NetworkMetricsAgentRepository>();
+            services.AddSingleton<IRepository<RamMetric>, RamMetricsAgentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

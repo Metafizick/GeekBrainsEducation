@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MetricsAgent.DAL;
+using MetricsAgent.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,10 +15,12 @@ namespace MetricsAgent.Controllers
     public class RamMetricsAgentController : ControllerBase
     {
         private readonly ILogger<RamMetricsAgentController> _logger;
-        public RamMetricsAgentController(ILogger<RamMetricsAgentController> logger)
+        private readonly IRepository<RamMetric> _ramMetricsAgentRepository;
+        public RamMetricsAgentController(ILogger<RamMetricsAgentController> logger, IRepository<RamMetric> ramMetricsAgentRepository)
         {
             _logger = logger;
             _logger.LogDebug(1, "NLog встроен в RamMetricsAgentController");
+            _ramMetricsAgentRepository = ramMetricsAgentRepository;
         }
         [HttpGet("from/{fromTime}/to/{toTime}")]
         public IActionResult GetMetricsFromAgent([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
