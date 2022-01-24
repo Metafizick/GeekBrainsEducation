@@ -11,7 +11,7 @@ namespace MetricsAgentTests
 {
     public class CpuMetricsAgentControllerUnitTests
     {
-        private CpuMetricsAgentController controller;
+        private CpuMetricsAgentController _controller;
         private Mock<ILogger<CpuMetricsAgentController>> _loggerMock;
         private Mock<IRepository<CpuMetric>> _cpuMetricsAgentRepositoryMock;
 
@@ -19,7 +19,7 @@ namespace MetricsAgentTests
         {
             _loggerMock = new Mock<ILogger<CpuMetricsAgentController>>();
             _cpuMetricsAgentRepositoryMock = new Mock<IRepository<CpuMetric>>();
-            controller = new CpuMetricsAgentController(_loggerMock.Object, _cpuMetricsAgentRepositoryMock.Object);
+            _controller = new CpuMetricsAgentController(_loggerMock.Object, _cpuMetricsAgentRepositoryMock.Object);
 
         }
         [Fact]
@@ -29,7 +29,7 @@ namespace MetricsAgentTests
             var toTime = TimeSpan.FromSeconds(100);
 
 
-            var result = controller.GetMetricsFromAgent(fromTime, toTime);
+            var result = _controller.GetMetricsFromAgent(fromTime, toTime);
 
 
             _ = Assert.IsAssignableFrom<IActionResult>(result);

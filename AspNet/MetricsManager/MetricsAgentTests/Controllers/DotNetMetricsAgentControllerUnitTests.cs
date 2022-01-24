@@ -11,14 +11,14 @@ namespace MetricsAgentTests
 {
     public class DotNetMetricsAgentControllerUnitTests
     {
-        private DotNetMetricsAgentController controller;
+        private DotNetMetricsAgentController _controller;
         private Mock<ILogger<DotNetMetricsAgentController>> _loggerMock;
         private Mock<IRepository<DotNetMetric>> _dotNetMetricsAgentRepositoryMock;
         public DotNetMetricsAgentControllerUnitTests()
         {
             _loggerMock = new Mock<ILogger<DotNetMetricsAgentController>>();
             _dotNetMetricsAgentRepositoryMock = new Mock<IRepository<DotNetMetric>>();
-            controller = new DotNetMetricsAgentController(_loggerMock.Object, _dotNetMetricsAgentRepositoryMock.Object);
+            _controller = new DotNetMetricsAgentController(_loggerMock.Object, _dotNetMetricsAgentRepositoryMock.Object);
         }
         [Fact]
         public void GetMetricsFromAgent_ReturnsOk()
@@ -27,7 +27,7 @@ namespace MetricsAgentTests
             var toTime = TimeSpan.FromSeconds(100);
 
 
-            var result = controller.GetMetricsFromAgent(fromTime, toTime);
+            var result = _controller.GetMetricsFromAgent(fromTime, toTime);
 
 
             _ = Assert.IsAssignableFrom<IActionResult>(result);

@@ -7,14 +7,14 @@ using Xunit;
 
 namespace MetricsManagerTests
 {
-    public class DotNetMetricsManagerConrollerUnitTests
+    public class NetworkMetricsManagerConrollerUnitTests
     {
-        private DotNetMetricsManagerController controller;
-        private Mock<ILogger<DotNetMetricsManagerController>> _loggerMock;
-        public DotNetMetricsManagerConrollerUnitTests()
+        private NetworkMetricsManagerController _controller;
+        private Mock<ILogger<NetworkMetricsManagerController>> _loggerMock;
+        public NetworkMetricsManagerConrollerUnitTests()
         {
-            _loggerMock = new Mock<ILogger<DotNetMetricsManagerController>>();
-            controller = new DotNetMetricsManagerController(_loggerMock.Object);
+            _loggerMock = new Mock<ILogger<NetworkMetricsManagerController>>();
+            _controller = new NetworkMetricsManagerController(_loggerMock.Object);
         }
 
         [Fact]
@@ -25,7 +25,7 @@ namespace MetricsManagerTests
             var toTime = TimeSpan.FromSeconds(100);
 
 
-            var result = controller.GetMetricsFromAgent(agentId, fromTime, toTime);
+            var result = _controller.GetMetricsFromAgent(agentId, fromTime, toTime);
 
 
             _ = Assert.IsAssignableFrom<IActionResult>(result);
@@ -37,7 +37,7 @@ namespace MetricsManagerTests
             var toTime = TimeSpan.FromSeconds(100);
 
 
-            var result = controller.GetMetricsFromAllCluster(fromTime, toTime);
+            var result = _controller.GetMetricsFromAllCluster(fromTime, toTime);
 
 
             _ = Assert.IsAssignableFrom<IActionResult>(result);

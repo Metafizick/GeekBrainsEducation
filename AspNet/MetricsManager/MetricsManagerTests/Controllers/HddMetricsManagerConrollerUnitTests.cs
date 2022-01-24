@@ -9,12 +9,12 @@ namespace MetricsManagerTests
 {
     public class HddMetricsManagerConrollerUnitTests
     {
-        private HddMetricsManagerController controller;
+        private HddMetricsManagerController _controller;
         private Mock<ILogger<HddMetricsManagerController>> _loggerMock;
         public HddMetricsManagerConrollerUnitTests()
         {
             _loggerMock = new Mock<ILogger<HddMetricsManagerController>>();
-            controller = new HddMetricsManagerController(_loggerMock.Object);
+            _controller = new HddMetricsManagerController(_loggerMock.Object);
         }
 
         [Fact]
@@ -25,7 +25,7 @@ namespace MetricsManagerTests
             var toTime = TimeSpan.FromSeconds(100);
 
 
-            var result = controller.GetMetricsFromAgent(agentId, fromTime, toTime);
+            var result = _controller.GetMetricsFromAgent(agentId, fromTime, toTime);
 
 
             _ = Assert.IsAssignableFrom<IActionResult>(result);
@@ -37,7 +37,7 @@ namespace MetricsManagerTests
             var toTime = TimeSpan.FromSeconds(100);
 
 
-            var result = controller.GetMetricsFromAllCluster(fromTime, toTime);
+            var result = _controller.GetMetricsFromAllCluster(fromTime, toTime);
 
 
             _ = Assert.IsAssignableFrom<IActionResult>(result);

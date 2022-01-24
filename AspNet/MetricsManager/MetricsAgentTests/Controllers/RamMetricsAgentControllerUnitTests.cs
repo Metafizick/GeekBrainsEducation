@@ -11,14 +11,14 @@ namespace MetricsAgentTests
 {
     public class RamMetricsAgentControllerUnitTests
     {
-        private RamMetricsAgentController controller;
+        private RamMetricsAgentController _controller;
         private Mock<ILogger<RamMetricsAgentController>> _loggerMock;
         private Mock<IRepository<RamMetric>> _ramMetricsAgentRepositoryMock;
         public RamMetricsAgentControllerUnitTests()
         {
             _loggerMock = new Mock<ILogger<RamMetricsAgentController>>();
             _ramMetricsAgentRepositoryMock = new Mock<IRepository<RamMetric>>();
-            controller = new RamMetricsAgentController(_loggerMock.Object, _ramMetricsAgentRepositoryMock.Object);
+            _controller = new RamMetricsAgentController(_loggerMock.Object, _ramMetricsAgentRepositoryMock.Object);
         }
         [Fact]
         public void GetMetricsFromAgent_ReturnsOk()
@@ -27,7 +27,7 @@ namespace MetricsAgentTests
             var toTime = TimeSpan.FromSeconds(100);
 
 
-            var result = controller.GetMetricsFromAgent(fromTime, toTime);
+            var result = _controller.GetMetricsFromAgent(fromTime, toTime);
 
 
             _ = Assert.IsAssignableFrom<IActionResult>(result);

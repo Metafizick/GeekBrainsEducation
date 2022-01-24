@@ -1,4 +1,4 @@
-using MetricsManager.Controllers;
+﻿using MetricsManager.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -7,14 +7,14 @@ using Xunit;
 
 namespace MetricsManagerTests
 {
-    public class CpuMetricsManagerConrollerUnitTests
+    public class RamMetricsManagerConrollerUnitTests
     {
-        private CpuMetricsManagerController controller;
-        private Mock<ILogger<CpuMetricsManagerController>> _loggerMock;
-        public CpuMetricsManagerConrollerUnitTests()
+        private RamMetricsManagerController _controller;
+        private Mock<ILogger<RamMetricsManagerController>> _loggerMock;
+        public RamMetricsManagerConrollerUnitTests()
         {
-            _loggerMock = new Mock<ILogger<CpuMetricsManagerController>>();
-            controller = new CpuMetricsManagerController(_loggerMock.Object);
+            _loggerMock = new Mock<ILogger<RamMetricsManagerController>>();
+            _controller = new RamMetricsManagerController(_loggerMock.Object);
         }
 
         [Fact]
@@ -24,10 +24,10 @@ namespace MetricsManagerTests
             var fromTime = TimeSpan.FromSeconds(0);
             var toTime = TimeSpan.FromSeconds(100);
 
-           
-            var result = controller.GetMetricsFromAgent(agentId, fromTime, toTime);
 
-            
+            var result = _controller.GetMetricsFromAgent(agentId, fromTime, toTime);
+
+
             _ = Assert.IsAssignableFrom<IActionResult>(result);
         }
         [Fact]
@@ -37,7 +37,7 @@ namespace MetricsManagerTests
             var toTime = TimeSpan.FromSeconds(100);
 
 
-            var result = controller.GetMetricsFromAllCluster(fromTime, toTime);
+            var result = _controller.GetMetricsFromAllCluster(fromTime, toTime);
 
 
             _ = Assert.IsAssignableFrom<IActionResult>(result);

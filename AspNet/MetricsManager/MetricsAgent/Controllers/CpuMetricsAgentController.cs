@@ -25,6 +25,7 @@ namespace MetricsAgent.Controllers
         [HttpGet("from/{fromTime}/to/{toTime}")]
         public IActionResult GetMetricsFromAgent([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
         {
+            _logger.LogDebug($"fromTime: {fromTime} toTime: {toTime}");
             return Ok();
         }
     }

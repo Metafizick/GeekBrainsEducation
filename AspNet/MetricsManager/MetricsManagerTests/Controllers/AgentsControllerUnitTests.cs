@@ -10,13 +10,13 @@ namespace MetricsManagerTests
 {
     public class AgentsControllerUnitTests
     {
-        private AgentsController controller;
+        private AgentsController _controller;
         private Mock<ILogger<AgentsController>> _loggerMock;
 
         public AgentsControllerUnitTests()
         {
             _loggerMock = new Mock<ILogger<AgentsController>>();
-            controller = new AgentsController(_loggerMock.Object);
+            _controller = new AgentsController(_loggerMock.Object);
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace MetricsManagerTests
 
             
 
-            var result = controller.RegisterAgent(agentInfo);
+            var result = _controller.RegisterAgent(agentInfo);
 
 
             _ = Assert.IsAssignableFrom<IActionResult>(result);
@@ -38,7 +38,7 @@ namespace MetricsManagerTests
             
 
 
-            var result = controller.EnableAgentById(agentId);
+            var result = _controller.EnableAgentById(agentId);
 
 
             _ = Assert.IsAssignableFrom<IActionResult>(result);
@@ -50,7 +50,7 @@ namespace MetricsManagerTests
 
 
 
-            var result = controller.DisableAgentById(agentId);
+            var result = _controller.DisableAgentById(agentId);
 
 
             _ = Assert.IsAssignableFrom<IActionResult>(result);
@@ -62,7 +62,7 @@ namespace MetricsManagerTests
 
 
 
-            var result = controller.GetAgentsList();
+            var result = _controller.GetAgentsList();
 
 
             _ = Assert.IsAssignableFrom<IActionResult>(result);
