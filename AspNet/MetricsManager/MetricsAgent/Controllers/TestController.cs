@@ -71,7 +71,7 @@ namespace MetricsAgent.Controllers
                             {
                                 Id = reader.GetInt32(0), // читаем данные полученные из базы данных
                                 Value = reader.GetInt32(1), // преобразуя к целочисленному типу
-                                Time = TimeSpan.FromSeconds(reader.GetInt32(2))
+                                Time = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt32(2))
                             };
                             // увеличиваем значение счетчика
                             counter++;

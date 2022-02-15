@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MetricsAgent.Models
+namespace MetricsAgent.Requests
 {
-    public class CpuMetric
+    public class CpuMetricCreateRequest
     {
-        public int Id { get; set; }
-
+        public DateTimeOffset Time { get; set; }
         public int Value { get; set; }
-
-        public TimeSpan Time { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace MetricsAgent.DAL
 
             // в таблице будем хранить время в секундах, потому преобразуем перед записью в секунды
             // через свойство
-            cmd.Parameters.AddWithValue("@time", item.Time.TotalSeconds);
+            cmd.Parameters.AddWithValue("@time", item.Time.ToUnixTimeSeconds());
             // подготовка команды к выполнению
             cmd.Prepare();
 
@@ -53,7 +53,7 @@ namespace MetricsAgent.DAL
             cmd.CommandText = "UPDATE cpumetrics SET value = @value, time = @time WHERE id=@id;";
             cmd.Parameters.AddWithValue("@id", item.Id);
             cmd.Parameters.AddWithValue("@value", item.Value);
-            cmd.Parameters.AddWithValue("@time", item.Time.TotalSeconds);
+            cmd.Parameters.AddWithValue("@time", item.Time.ToUnixTimeSeconds());
             cmd.Prepare();
 
             cmd.ExecuteNonQuery();
@@ -81,7 +81,7 @@ namespace MetricsAgent.DAL
                         Id = reader.GetInt32(0),
                         Value = reader.GetInt32(1),
                         // налету преобразуем прочитанные секунды в метку времени
-                        Time = TimeSpan.FromSeconds(reader.GetInt32(2))
+                        Time = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt32(2))
                     });
                 }
             }
@@ -105,7 +105,7 @@ namespace MetricsAgent.DAL
                     {
                         Id = reader.GetInt32(0),
                         Value = reader.GetInt32(1),
-                        Time = TimeSpan.FromSeconds(reader.GetInt32(1))
+                        Time = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt32(2))
                     };
                 }
                 else
