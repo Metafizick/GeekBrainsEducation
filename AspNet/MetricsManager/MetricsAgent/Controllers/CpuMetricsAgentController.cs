@@ -9,6 +9,7 @@ using MetricsAgent.DAL;
 using MetricsAgent.Models;
 using MetricsAgent.Requests;
 using MetricsAgent.Responses;
+using AutoMapper;
 
 namespace MetricsAgent.Controllers
 {
@@ -18,11 +19,13 @@ namespace MetricsAgent.Controllers
     {
         private readonly ILogger<CpuMetricsAgentController> _logger;
         private readonly IRepository<CpuMetric> _cpuMetricsAgentRepository;
-        public CpuMetricsAgentController(ILogger<CpuMetricsAgentController> logger, IRepository<CpuMetric> cpuMetricsAgentRepository)
+        private readonly IMapper _mapper;
+        public CpuMetricsAgentController(ILogger<CpuMetricsAgentController> logger, IRepository<CpuMetric> cpuMetricsAgentRepository, IMapper mapper)
         {
             _logger = logger;
-            _logger.LogDebug(1, "NLog встроен в CpuMetricsAgentController");
             _cpuMetricsAgentRepository = cpuMetricsAgentRepository;
+            _mapper = mapper;
+
         }
         [HttpGet("from/{fromTime}/to/{toTime}")]
         public IActionResult GetMetricsFromAgent([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
@@ -54,11 +57,9 @@ namespace MetricsAgent.Controllers
 
             foreach (var metric in metrics)
             {
-                response.Metrics.Add(new CpuMetricDto { Time = metric.Time, Value = metric.Value, Id = metric.Id });
+                response.Metrics.Add(_mapper.Map<CpuMetricDto>(metric));
             }
-
             return Ok(response);
         }
-
     }
 }
