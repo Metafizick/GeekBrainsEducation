@@ -14,6 +14,10 @@ using MetricsAgent.Models;
 using MetricsAgent.DAL;
 using System.Data.SQLite;
 using AutoMapper;
+using Quartz.Spi;
+using Quartz;
+using MetricsAgent.Jobs;
+using Quartz.Impl;
 
 namespace MetricsAgent
 {
@@ -39,6 +43,19 @@ namespace MetricsAgent
             var mapperConfiguration = new MapperConfiguration(mp => mp.AddProfile(new MapperProfile()));
             var mapper = mapperConfiguration.CreateMapper();
             services.AddSingleton(mapper);
+            // Добавляем сервисы
+            services.AddSingleton<IJobFactory, SingletonJobFactory>();
+            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
+            // Добавляем нашу задачу
+            services.AddSingleton<CpuMetricJob>();
+            services.AddSingleton<RamMetricJob>();
+            services.AddSingleton(new JobSchedule(
+                jobType: typeof(CpuMetricJob),
+                cronExpression: "0/5 * * * * ?"));
+            services.AddSingleton(new JobSchedule(
+                jobType: typeof(RamMetricJob),
+                cronExpression: "0/5 * * * * ?"));// Запускать каждые 5 секунд
+            services.AddHostedService<QuartzHostedService>();
         }
         private void ConfigureSqlLiteConnection(IServiceCollection services)
         {

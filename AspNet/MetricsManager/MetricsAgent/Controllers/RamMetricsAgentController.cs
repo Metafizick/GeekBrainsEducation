@@ -26,11 +26,21 @@ namespace MetricsAgent.Controllers
             _ramMetricsAgentRepository = ramMetricsAgentRepository;
             _mapper = mapper;
         }
-        [HttpGet("from/{fromTime}/to/{toTime}")]
-        public IActionResult GetMetricsFromAgent([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
+        [HttpPost("from/{fromTime}/to/{toTime}")]
+        public IActionResult GetByTimePeriod([FromRoute] DateTimeOffset fromTime, [FromRoute] DateTimeOffset toTime)
         {
             _logger.LogInformation($"fromTime: {fromTime} toTime: {toTime}");
-            return Ok();
+            var metrics = _ramMetricsAgentRepository.GetByTimePeriod(fromTime, toTime);
+            var response = new AllRamMetricsResponse()
+            {
+                Metrics = new List<RamMetricDto>()
+            };
+
+            foreach (var metric in metrics)
+            {
+                response.Metrics.Add(_mapper.Map<RamMetricDto>(metric));
+            }
+            return Ok(response);
         }
         [HttpPost("create")]
         public IActionResult Create([FromBody] RamMetricCreateRequest request)

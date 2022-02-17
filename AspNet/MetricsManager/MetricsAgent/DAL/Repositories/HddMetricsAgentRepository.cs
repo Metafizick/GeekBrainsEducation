@@ -68,6 +68,15 @@ namespace MetricsAgent.DAL
                 return result;
             }
         }
+
+        public IList<HddMetric> GetByTimePeriod(DateTimeOffset fromTime, DateTimeOffset toTime)
+        {
+            using (var connection = new SQLiteConnection(ConnectionString))
+            {
+                var result = connection.Query<HddMetric>("SELECT id, value, time FROM hddmetrics WHERE time>@fromTime AND time<@toTime").ToList();
+                return result;
+            }
+        }
     }
 }
 
