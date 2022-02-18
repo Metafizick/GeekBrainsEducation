@@ -13,7 +13,7 @@ namespace MetricsAgent.DAL
         private const string ConnectionString = @"Data Source=metrics.db;Version=3;Pooling=true;Max Pool Size=100;";
         public RamMetricsAgentRepository()
         {
-            SqlMapper.AddTypeHandler(new DataTimeOffsetHandler());
+            SqlMapper.AddTypeHandler(new TimeSpanHandler());
         }
         public void Create(RamMetric item)
         {
@@ -23,7 +23,7 @@ namespace MetricsAgent.DAL
                     new
                     {
                         value = item.Value,
-                        time = item.Time.ToUnixTimeSeconds()
+                        time = item.Time.TotalSeconds
                     });
             }
         }
@@ -46,7 +46,7 @@ namespace MetricsAgent.DAL
                     new
                     {
                         value = item.Value,
-                        time = item.Time.ToUnixTimeSeconds(),
+                        time = item.Time.TotalSeconds,
                         id = item.Id
                     });
             }
@@ -68,7 +68,7 @@ namespace MetricsAgent.DAL
                 return result;
             }
         }
-        public IList<RamMetric> GetByTimePeriod(DateTimeOffset fromTime, DateTimeOffset toTime)
+        public IList<RamMetric> GetByTimePeriod(TimeSpan fromTime, TimeSpan toTime)
         {
             using (var connection = new SQLiteConnection(ConnectionString))
             {

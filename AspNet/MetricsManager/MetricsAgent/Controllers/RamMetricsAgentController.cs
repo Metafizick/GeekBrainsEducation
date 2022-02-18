@@ -26,10 +26,10 @@ namespace MetricsAgent.Controllers
             _ramMetricsAgentRepository = ramMetricsAgentRepository;
             _mapper = mapper;
         }
-        [HttpPost("from/{fromTime}/to/{toTime}")]
-        public IActionResult GetByTimePeriod([FromRoute] DateTimeOffset fromTime, [FromRoute] DateTimeOffset toTime)
+        [HttpGet("from/{fromTime}/to/{toTime}")]
+        public IActionResult GetByTimePeriod([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
         {
-            _logger.LogInformation($"fromTime: {fromTime} toTime: {toTime}");
+            _logger.LogInformation($"fromTime: {fromTime} toTime: {toTime}");            
             var metrics = _ramMetricsAgentRepository.GetByTimePeriod(fromTime, toTime);
             var response = new AllRamMetricsResponse()
             {

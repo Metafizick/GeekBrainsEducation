@@ -28,7 +28,7 @@ namespace MetricsAgent.Controllers
 
         }
         [HttpGet("from/{fromTime}/to/{toTime}")]
-        public IActionResult GetByTimePeriod([FromRoute] DateTimeOffset fromTime, [FromRoute] DateTimeOffset toTime)
+        public IActionResult GetByTimePeriod([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
         {
             _logger.LogInformation($"fromTime: {fromTime} toTime: {toTime}");
             var metrics = _cpuMetricsAgentRepository.GetByTimePeriod(fromTime, toTime);
