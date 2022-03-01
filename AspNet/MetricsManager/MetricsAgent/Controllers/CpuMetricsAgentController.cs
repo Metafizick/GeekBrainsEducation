@@ -28,10 +28,10 @@ namespace MetricsAgent.Controllers
 
         }
         [HttpGet("from/{fromTime}/to/{toTime}")]
-        public IActionResult GetByTimePeriod([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
+        public IActionResult GetByTimePeriod([FromRoute] TimeSpan fromTime)
         {
-            _logger.LogInformation($"fromTime: {fromTime} toTime: {toTime}");
-            var metrics = _cpuMetricsAgentRepository.GetByTimePeriod(fromTime, toTime);
+            _logger.LogInformation($"fromTime: {fromTime}");
+            var metrics = _cpuMetricsAgentRepository.GetByTimePeriod(fromTime);
             var response = new AllCpuMetricsResponse()
             {
                 Metrics = new List<CpuMetricDto>()

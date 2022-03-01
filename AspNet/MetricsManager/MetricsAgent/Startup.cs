@@ -71,7 +71,7 @@ namespace MetricsAgent
                 command.CommandText = "DROP TABLE IF EXISTS cpumetrics";
                 command.ExecuteNonQuery();
                 command.CommandText = @"CREATE TABLE cpumetrics(id INTEGER PRIMARY KEY,
-                    value INT, time INT)";
+                    value INT, time LONG)";
                 command.ExecuteNonQuery();
                 command.CommandText = "DROP TABLE IF EXISTS dotnetmetrics";
                 command.ExecuteNonQuery();
@@ -91,7 +91,7 @@ namespace MetricsAgent
                 command.CommandText = "DROP TABLE IF EXISTS rammetrics";
                 command.ExecuteNonQuery();
                 command.CommandText = @"CREATE TABLE rammetrics(id INTEGER PRIMARY KEY,
-                    value INT, time INT)";
+                    value INT, time LONG)";
                 command.ExecuteNonQuery();
             }
         }

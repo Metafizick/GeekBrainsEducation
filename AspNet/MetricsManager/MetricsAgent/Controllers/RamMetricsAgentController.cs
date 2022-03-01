@@ -26,11 +26,11 @@ namespace MetricsAgent.Controllers
             _ramMetricsAgentRepository = ramMetricsAgentRepository;
             _mapper = mapper;
         }
-        [HttpGet("from/{fromTime}/to/{toTime}")]
-        public IActionResult GetByTimePeriod([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
+        [HttpGet("from/{fromTime}")]
+        public IActionResult GetByTimePeriod([FromRoute] TimeSpan fromTime)
         {
-            _logger.LogInformation($"fromTime: {fromTime} toTime: {toTime}");            
-            var metrics = _ramMetricsAgentRepository.GetByTimePeriod(fromTime, toTime);
+            _logger.LogInformation($"fromTime: {fromTime}");            
+            var metrics = _ramMetricsAgentRepository.GetByTimePeriod(fromTime);
             var response = new AllRamMetricsResponse()
             {
                 Metrics = new List<RamMetricDto>()
@@ -68,6 +68,14 @@ namespace MetricsAgent.Controllers
             {
                 response.Metrics.Add(_mapper.Map<RamMetricDto>(metric));
             }
+            return Ok(response);
+        }
+        [HttpGet("getfromid/{Id}")]
+        public IActionResult GetFromId([FromRoute] int Id)
+        {
+            _logger.LogInformation($"Id: {Id}");
+            var metric = _ramMetricsAgentRepository.GetById(Id);
+            var response =_mapper.Map<RamMetricDto>(metric);                      
             return Ok(response);
         }
     }

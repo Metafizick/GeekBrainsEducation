@@ -19,9 +19,10 @@ namespace MetricsAgent.Jobs
         public Task Execute(IJobExecutionContext context)
         {
             var cpuUsageInPercents = Convert.ToInt32(_performanceCounter.NextValue());
+            var time = TimeSpan.FromSeconds(DateTimeOffset.UtcNow.ToUnixTimeSeconds());
             _cpuMetricsAgentRepository.Create(new CpuMetric()
             {
-                Time = DateTimeOffset.UtcNow,
+                Time = time,
                 Value = cpuUsageInPercents
             });
             return Task.CompletedTask;

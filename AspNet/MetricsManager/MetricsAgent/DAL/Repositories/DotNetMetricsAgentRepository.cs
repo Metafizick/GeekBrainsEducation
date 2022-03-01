@@ -23,7 +23,7 @@ namespace MetricsAgent.DAL
                     new
                     {
                         value = item.Value,
-                        time = item.Time.ToUnixTimeSeconds()
+                        time = item.Time.TotalSeconds
                     });
             }
         }
@@ -46,7 +46,7 @@ namespace MetricsAgent.DAL
                     new
                     {
                         value = item.Value,
-                        time = item.Time.ToUnixTimeSeconds(),
+                        time = item.Time.TotalSeconds,
                         id = item.Id
                     });
             }
@@ -69,8 +69,7 @@ namespace MetricsAgent.DAL
             }
 
         }
-
-        public IList<DotNetMetric> GetByTimePeriod(TimeSpan fromTime, TimeSpan toTime)
+        public IList<DotNetMetric> GetByTimePeriod(TimeSpan fromTime)
         {
             using (var connection = new SQLiteConnection(ConnectionString))
             {
