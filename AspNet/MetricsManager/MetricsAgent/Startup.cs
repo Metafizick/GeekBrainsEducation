@@ -49,11 +49,15 @@ namespace MetricsAgent
             // Добавляем нашу задачу
             services.AddSingleton<CpuMetricJob>();
             services.AddSingleton<RamMetricJob>();
+            services.AddSingleton<NetworkMetricJob>();
             services.AddSingleton(new JobSchedule(
                 jobType: typeof(CpuMetricJob),
                 cronExpression: "0/5 * * * * ?"));
             services.AddSingleton(new JobSchedule(
                 jobType: typeof(RamMetricJob),
+                cronExpression: "0/5 * * * * ?"));
+            services.AddSingleton(new JobSchedule(
+                jobType: typeof(NetworkMetricJob),
                 cronExpression: "0/5 * * * * ?"));// Запускать каждые 5 секунд
             services.AddHostedService<QuartzHostedService>();
         }
