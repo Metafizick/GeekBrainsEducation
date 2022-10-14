@@ -90,7 +90,7 @@ namespace MetricsAgent
                 command.CommandText = "DROP TABLE IF EXISTS networkmetrics";
                 command.ExecuteNonQuery();
                 command.CommandText = @"CREATE TABLE networkmetrics(id INTEGER PRIMARY KEY,
-                    value INT, time INT)";
+                    value INT, time LONG)";
                 command.ExecuteNonQuery();
                 command.CommandText = "DROP TABLE IF EXISTS rammetrics";
                 command.ExecuteNonQuery();

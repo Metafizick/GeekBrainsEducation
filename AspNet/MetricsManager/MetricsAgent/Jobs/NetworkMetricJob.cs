@@ -11,10 +11,13 @@ namespace MetricsAgent.Jobs
     {
         private readonly IRepository<NetworkMetric> _networkMetricsAgentRepository;
         private PerformanceCounter _performanceCounter;
+        private string[] _instanceName;
         public NetworkMetricJob(IRepository<NetworkMetric> networkMetricsAgentRepository)
         {
-            _networkMetricsAgentRepository = networkMetricsAgentRepository;
-            _performanceCounter = new PerformanceCounter("Network Interface", "Bytes Sent/sec");
+            _networkMetricsAgentRepository = networkMetricsAgentRepository;           
+            PerformanceCounterCategory category = new PerformanceCounterCategory("Network Interface");
+            _instanceName = category.GetInstanceNames();
+            _performanceCounter = new PerformanceCounter("Network Interface", "Bytes Sent/sec", _instanceName[0]);
         }
         public Task Execute(IJobExecutionContext context)
         {
