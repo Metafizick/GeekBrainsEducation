@@ -13,7 +13,7 @@ namespace MetricsAgent.DAL
         private const string ConnectionString = @"Data Source=metrics.db;Version=3;Pooling=true;Max Pool Size=100;";
         public DotNetMetricsAgentRepository()
         {
-            SqlMapper.AddTypeHandler(new DataTimeOffsetHandler());
+            SqlMapper.AddTypeHandler(new TimeSpanHandler());
         }
         public void Create(DotNetMetric item)
         {

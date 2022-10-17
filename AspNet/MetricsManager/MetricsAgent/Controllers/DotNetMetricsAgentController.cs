@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace MetricsAgent.Controllers
 {
-    [Route("api/metricsagent/dotnet/errors-count")]
+    [Route("api/metricsagent/dotnet")]
     [ApiController]
     public class DotNetMetricsAgentController : ControllerBase
     {

@@ -49,7 +49,9 @@ namespace MetricsAgent
             // Добавляем нашу задачу
             services.AddSingleton<CpuMetricJob>();
             services.AddSingleton<RamMetricJob>();
+            services.AddSingleton<HddMetricJob>();
             services.AddSingleton<NetworkMetricJob>();
+            services.AddSingleton<DotNetMetricJob>();
             services.AddSingleton(new JobSchedule(
                 jobType: typeof(CpuMetricJob),
                 cronExpression: "0/5 * * * * ?"));
@@ -58,6 +60,12 @@ namespace MetricsAgent
                 cronExpression: "0/5 * * * * ?"));
             services.AddSingleton(new JobSchedule(
                 jobType: typeof(NetworkMetricJob),
+                cronExpression: "0/5 * * * * ?"));
+            services.AddSingleton(new JobSchedule(
+                jobType: typeof(HddMetricJob),
+                cronExpression: "0/5 * * * * ?"));
+            services.AddSingleton(new JobSchedule(
+                jobType: typeof(DotNetMetricJob),
                 cronExpression: "0/5 * * * * ?"));// Запускать каждые 5 секунд
             services.AddHostedService<QuartzHostedService>();
         }
@@ -85,7 +93,7 @@ namespace MetricsAgent
                 command.CommandText = "DROP TABLE IF EXISTS hddmetrics";
                 command.ExecuteNonQuery();
                 command.CommandText = @"CREATE TABLE hddmetrics(id INTEGER PRIMARY KEY,
-                    value INT, time INT)";
+                    value INT, time LONG)";
                 command.ExecuteNonQuery();
                 command.CommandText = "DROP TABLE IF EXISTS networkmetrics";
                 command.ExecuteNonQuery();

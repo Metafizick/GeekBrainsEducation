@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace MetricsAgent.Controllers
 {
-    [Route("api/metricsagent/hdd/left")]
+    [Route("api/metricsagent/hdd")]
     [ApiController]
     public class HddMetricsAgentController : ControllerBase
     {
