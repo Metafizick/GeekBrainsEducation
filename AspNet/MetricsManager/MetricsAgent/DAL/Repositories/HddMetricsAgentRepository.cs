@@ -69,7 +69,7 @@ namespace MetricsAgent.DAL
             }
         }
 
-        public IList<HddMetric> GetByTimePeriod(TimeSpan fromTime)
+        public IList<HddMetric> GetByTimePeriod(string fromTime)
         {
             using (var connection = new SQLiteConnection(ConnectionString))
             {

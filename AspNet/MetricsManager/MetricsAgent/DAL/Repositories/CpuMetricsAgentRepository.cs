@@ -67,7 +67,7 @@ namespace MetricsAgent.DAL
                 return result;
             }
         }
-        public IList<CpuMetric> GetByTimePeriod(TimeSpan fromTime)
+        public IList<CpuMetric> GetByTimePeriod(string fromTime)
         {
             using (var connection = new SQLiteConnection(ConnectionString))
             {

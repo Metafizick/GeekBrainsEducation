@@ -18,6 +18,7 @@ using Quartz.Spi;
 using Quartz;
 using MetricsAgent.Jobs;
 using Quartz.Impl;
+using FluentMigrator.Runner;
 
 namespace MetricsAgent
 {
@@ -29,7 +30,7 @@ namespace MetricsAgent
         }
 
         public IConfiguration Configuration { get; }
-
+        private const string ConnectionString = "Data Source=metrics.db;Version=3;Pooling=true;Max Pool Size=100;";
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -39,10 +40,20 @@ namespace MetricsAgent
             services.AddSingleton<IRepository<HddMetric>, HddMetricsAgentRepository>();
             services.AddSingleton<IRepository<NetworkMetric>, NetworkMetricsAgentRepository>();
             services.AddSingleton<IRepository<RamMetric>, RamMetricsAgentRepository>();
-            ConfigureSqlLiteConnection(services);
             var mapperConfiguration = new MapperConfiguration(mp => mp.AddProfile(new MapperProfile()));
             var mapper = mapperConfiguration.CreateMapper();
             services.AddSingleton(mapper);
+            services.AddFluentMigratorCore()
+                .ConfigureRunner(rb => rb
+                // Добавляем поддержку SQLite
+                .AddSQLite()
+                // Устанавливаем строку подключения
+                .WithGlobalConnectionString(ConnectionString)
+                // Подсказываем, где искать классы с миграциями
+                .ScanIn(typeof(Startup).Assembly).For.Migrations()
+                ).AddLogging(lb => lb
+                .AddFluentMigratorConsole());
+
             // Добавляем сервисы
             services.AddSingleton<IJobFactory, SingletonJobFactory>();
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
@@ -69,46 +80,8 @@ namespace MetricsAgent
                 cronExpression: "0/5 * * * * ?"));// Запускать каждые 5 секунд
             services.AddHostedService<QuartzHostedService>();
         }
-        private void ConfigureSqlLiteConnection(IServiceCollection services)
-        {
-            const string connectionString = "Data Source=metrics.db;Version=3;Pooling=true;Max Pool Size=100;";
-            var connection = new SQLiteConnection(connectionString);
-            connection.Open();
-            PrepareSchema(connection);
-        }
-        private void PrepareSchema(SQLiteConnection connection)
-        {
-            using (var command = new SQLiteCommand(connection))
-            {
-                command.CommandText = "DROP TABLE IF EXISTS cpumetrics";
-                command.ExecuteNonQuery();
-                command.CommandText = @"CREATE TABLE cpumetrics(id INTEGER PRIMARY KEY,
-                    value INT, time LONG)";
-                command.ExecuteNonQuery();
-                command.CommandText = "DROP TABLE IF EXISTS dotnetmetrics";
-                command.ExecuteNonQuery();
-                command.CommandText = @"CREATE TABLE dotnetmetrics(id INTEGER PRIMARY KEY,
-                    value INT, time INT)";
-                command.ExecuteNonQuery();
-                command.CommandText = "DROP TABLE IF EXISTS hddmetrics";
-                command.ExecuteNonQuery();
-                command.CommandText = @"CREATE TABLE hddmetrics(id INTEGER PRIMARY KEY,
-                    value INT, time LONG)";
-                command.ExecuteNonQuery();
-                command.CommandText = "DROP TABLE IF EXISTS networkmetrics";
-                command.ExecuteNonQuery();
-                command.CommandText = @"CREATE TABLE networkmetrics(id INTEGER PRIMARY KEY,
-                    value INT, time LONG)";
-                command.ExecuteNonQuery();
-                command.CommandText = "DROP TABLE IF EXISTS rammetrics";
-                command.ExecuteNonQuery();
-                command.CommandText = @"CREATE TABLE rammetrics(id INTEGER PRIMARY KEY,
-                    value INT, time LONG)";
-                command.ExecuteNonQuery();
-            }
-        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMigrationRunner migrationRunner)
         {
             if (env.IsDevelopment())
             {
@@ -125,6 +98,7 @@ namespace MetricsAgent
             {
                 endpoints.MapControllers();
             });
+            migrationRunner.MigrateUp();
         }
     }
 }

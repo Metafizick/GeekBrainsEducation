@@ -5,7 +5,7 @@ namespace MetricsAgent.DAL
     public interface IRepository<T> where T : class
     {
         IList<T> GetAll();
-        IList<T> GetByTimePeriod(TimeSpan fromTime);
+        IList<T> GetByTimePeriod(string fromTime);
 
         T GetById(int id);
 

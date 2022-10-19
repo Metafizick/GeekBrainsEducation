@@ -68,13 +68,13 @@ namespace MetricsAgent.DAL
                 return result;
             }
         }
-        public IList<RamMetric> GetByTimePeriod(TimeSpan fromTime)
+        public IList<RamMetric> GetByTimePeriod(string fromTime)
         {
-            var fromTimeToSec = fromTime;
-            var toTime = TimeSpan.FromSeconds(DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+            var fromTimeToSec = Convert.ToInt64(fromTime);
+            var toTime = TimeSpan.FromSeconds(DateTimeOffset.UtcNow.ToUnixTimeSeconds()).TotalSeconds;
             using (var connection = new SQLiteConnection(ConnectionString))
             {
-                var result = connection.Query<RamMetric>("SELECT id, value, time FROM rammetrics WHERE time>@fromTimeToSec AND time<@toTime").ToList();
+                var result = connection.Query<RamMetric>("SELECT id, value, time FROM rammetrics WHERE time=@fromTimeToSec").ToList();
                 return result;
             }
         }

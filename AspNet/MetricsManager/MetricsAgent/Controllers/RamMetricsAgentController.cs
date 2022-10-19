@@ -27,7 +27,7 @@ namespace MetricsAgent.Controllers
             _mapper = mapper;
         }
         [HttpGet("from/{fromTime}")]
-        public IActionResult GetByTimePeriod([FromRoute] TimeSpan fromTime)
+        public IActionResult GetByTimePeriod([FromRoute] string fromTime)
         {
             _logger.LogInformation($"fromTime: {fromTime}");            
             var metrics = _ramMetricsAgentRepository.GetByTimePeriod(fromTime);
