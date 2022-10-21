@@ -71,9 +71,11 @@ namespace MetricsAgent.DAL
 
         public IList<NetworkMetric> GetByTimePeriod(string fromTime)
         {
+            var fromTimeToSec = Convert.ToInt64(fromTime);
+            var toTime = Convert.ToInt64(TimeSpan.FromSeconds(DateTimeOffset.UtcNow.ToUnixTimeSeconds()).TotalSeconds);
             using (var connection = new SQLiteConnection(ConnectionString))
             {
-                var result = connection.Query<NetworkMetric>("SELECT id, value, time FROM networkmetrics WHERE time>@fromTime AND time<@toTime").ToList();
+                var result = connection.Query<NetworkMetric>($"SELECT Id, Time, Value FROM networkmetrics WHERE Time>{fromTimeToSec} AND Time<{toTime}").ToList();
                 return result;
             }
         }

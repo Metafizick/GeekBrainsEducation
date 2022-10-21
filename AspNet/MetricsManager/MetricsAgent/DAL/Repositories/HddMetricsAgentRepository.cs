@@ -71,9 +71,11 @@ namespace MetricsAgent.DAL
 
         public IList<HddMetric> GetByTimePeriod(string fromTime)
         {
+            var fromTimeToSec = Convert.ToInt64(fromTime);
+            var toTime = Convert.ToInt64(TimeSpan.FromSeconds(DateTimeOffset.UtcNow.ToUnixTimeSeconds()).TotalSeconds);
             using (var connection = new SQLiteConnection(ConnectionString))
             {
-                var result = connection.Query<HddMetric>("SELECT id, value, time FROM hddmetrics WHERE time>@fromTime AND time<@toTime").ToList();
+                var result = connection.Query<HddMetric>($"SELECT Id, Time, Value FROM hddmetrics WHERE Time>{fromTimeToSec} AND Time<{toTime}").ToList();
                 return result;
             }
         }

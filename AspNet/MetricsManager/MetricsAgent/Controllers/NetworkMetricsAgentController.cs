@@ -26,11 +26,21 @@ namespace MetricsAgent.Controllers
             _networkMetricsAgentRepository = networkMetricsAgentRepository;
             _mapper = mapper;
         }
-        [HttpGet("from/{fromTime}/to/{toTime}")]
-        public IActionResult GetMetricsFromAgent([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
+        [HttpGet("from/{fromTime}")]
+        public IActionResult GetMetricsFromAgent([FromRoute] string fromTime)
         {
-            _logger.LogInformation($"fromTime: {fromTime} toTime: {toTime}");
-            return Ok();
+            _logger.LogInformation($"fromTime: {fromTime}");
+            var metrics = _networkMetricsAgentRepository.GetByTimePeriod(fromTime);
+            var response = new AllNetworkMetricsResponse()
+            {
+                Metrics = new List<NetworkMetricDto>()
+            };
+
+            foreach (var metric in metrics)
+            {
+                response.Metrics.Add(_mapper.Map<NetworkMetricDto>(metric));
+            }
+            return Ok(response);
         }
         [HttpPost("create")]
         public IActionResult Create([FromBody] NetworkMetricCreateRequest request)

@@ -69,9 +69,11 @@ namespace MetricsAgent.DAL
         }
         public IList<CpuMetric> GetByTimePeriod(string fromTime)
         {
+            var fromTimeToSec = Convert.ToInt64(fromTime);
+            var toTime = Convert.ToInt64(TimeSpan.FromSeconds(DateTimeOffset.UtcNow.ToUnixTimeSeconds()).TotalSeconds);
             using (var connection = new SQLiteConnection(ConnectionString))
             {
-                var result = connection.Query<CpuMetric>("SELECT id, value, time FROM cpumetrics WHERE time>@fromTime AND time<@toTime").ToList();
+                var result = connection.Query<CpuMetric>($"SELECT Id, Time, Value FROM cpumetrics WHERE Time>{fromTimeToSec} AND Time<{toTime}").ToList();
                 return result;
             }
         }

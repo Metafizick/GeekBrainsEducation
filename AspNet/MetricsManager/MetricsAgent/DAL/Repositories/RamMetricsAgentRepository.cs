@@ -71,10 +71,10 @@ namespace MetricsAgent.DAL
         public IList<RamMetric> GetByTimePeriod(string fromTime)
         {
             var fromTimeToSec = Convert.ToInt64(fromTime);
-            var toTime = TimeSpan.FromSeconds(DateTimeOffset.UtcNow.ToUnixTimeSeconds()).TotalSeconds;
+            var toTime = Convert.ToInt64(TimeSpan.FromSeconds(DateTimeOffset.UtcNow.ToUnixTimeSeconds()).TotalSeconds);
             using (var connection = new SQLiteConnection(ConnectionString))
-            {
-                var result = connection.Query<RamMetric>("SELECT id, value, time FROM rammetrics WHERE time=@fromTimeToSec").ToList();
+            {               
+                var result = connection.Query<RamMetric>($"SELECT Id, Time, Value FROM rammetrics WHERE Time>{fromTimeToSec} AND Time<{toTime}").ToList();
                 return result;
             }
         }
