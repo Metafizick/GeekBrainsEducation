@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MetricsManager.Client;
+using MetricsManager.Requests;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,16 +14,21 @@ namespace MetricsManager.Controllers
     [ApiController]
     public class CpuMetricsManagerController : ControllerBase
     {
-        private readonly ILogger<CpuMetricsManagerController> _logger;
-        public CpuMetricsManagerController(ILogger<CpuMetricsManagerController> logger) 
+        
+        private readonly MetricAgentClient _metricAgentClient;
+        public CpuMetricsManagerController( MetricAgentClient metricAgentClient)
         {
-            _logger = logger;
-            _logger.LogDebug(1, "NLog встроен в CpuMetricsManagerController");
+            
+            _metricAgentClient = metricAgentClient;
         }
-        [HttpGet("agent/{agentId}/from/{fromTime}/to/{toTime}")]
-        public IActionResult GetMetricsFromAgent([FromRoute] int agentId, [FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
+        [HttpGet("from/{fromTime}")]
+        public IActionResult GetMetricsFromAgent([FromRoute] string fromTime)
         {
-            return Ok();
+           
+            // обращение в сервис
+            var metrics = _metricAgentClient.GetCpuMetrics(new GetAllCpuMetricsRequest(){FromTime = fromTime });
+
+            return Ok(metrics);
         }
 
         [HttpGet("cluster/from/{fromTime}/to/{toTime}")]
@@ -32,7 +39,7 @@ namespace MetricsManager.Controllers
         [HttpGet("test")]
         public IActionResult Test()
         {
-            _logger.LogError("Hello");
+           
             return Ok();
         }
 
