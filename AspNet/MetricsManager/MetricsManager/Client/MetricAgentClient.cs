@@ -21,9 +21,10 @@ namespace MetricsManager.Client
             _logger = logger;
         }
 
-        public AllHddMetricsResponse GetAllHddMetrics(GetAllHddMetricsRequest request)
+        public AllHddMetricsResponse GetHddMetrics(GetAllHddMetricsRequest request)
         {
-            var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:5001/api/metricsagent/hdd/from/{request.From}");
+            var requestString = request.FromTime.ToString();
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:5001/api/metricsagent/hdd/from/{requestString}");
             try
             {
                 HttpResponseMessage response = _httpClient.SendAsync(httpRequest).Result;

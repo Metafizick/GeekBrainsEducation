@@ -1,11 +1,13 @@
-﻿namespace MetricsManager.Requests
+﻿using System;
+
+namespace MetricsManager.Requests
 {
     public class GetAllHddMetricsRequest
     {
-        public GetAllHddMetricsRequest(string from)
+        public GetAllHddMetricsRequest(TimeSpan fromTime)
         {
-            From = from;
+            FromTime = fromTime;
         }
-        public string From { get; }
+        public TimeSpan FromTime { get; }
     }
 }

@@ -1,4 +1,5 @@
 using MetricsManager.Client;
+using MetricsManager.Requests;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,7 @@ namespace MetricsManager
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddTransient < GetAllHddMetricsRequest{ FromTime = 0} > ;
             services.AddHttpClient<IMetricAgentClient, MetricAgentClient>().AddTransientHttpErrorPolicy(p => p.WaitAndRetryAsync(3, _ => TimeSpan.FromMilliseconds(1000)));
         }
 
