@@ -5,29 +5,56 @@ namespace EmployeeService.Services.Impl
 {
     public class EmployeeRepository : IEmployeeRepository
     {
+        private readonly EmployeeServiceDbContext _context;
+
+        public EmployeeRepository(EmployeeServiceDbContext context)
+        {
+            _context = context;
+        }
         public int Create(Employee data)
         {
-            throw new NotImplementedException();
+            _context.Employees.Add(data);
+            _context.SaveChanges();
+            return data.Id;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            Employee employee = GetById(id);
+            if (employee != null)
+            {
+                _context.Employees.Remove(employee);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
         public IList<Employee> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Employees.ToList();
         }
 
         public Employee GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Employees.FirstOrDefault(et => et.Id == id);
         }
 
         public bool Update(Employee data)
         {
-            throw new NotImplementedException();
+            Employee employee = GetById(data.Id);
+            if (employee != null)
+            {
+                employee.DepartmentId = data.DepartmentId;
+                employee.EmployeeTypeId = data.EmployeeTypeId;
+                employee.FirstName = data.FirstName;
+                employee.Surname = data.Surname;
+                employee.Patronymic = data.Patronymic;
+                employee.Salary = data.Salary;
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 }
