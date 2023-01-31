@@ -16,7 +16,7 @@ namespace Lesson1
 
     internal class Sample02
     {
-        static void Main(string[] args)
+       static void Main(string[] args)
         {
             Console.WriteLine("Начало работы приложения ...");
 
@@ -24,7 +24,6 @@ namespace Lesson1
 
             Console.WriteLine("Завершение работы приложения ...");
         }
-
 
         static void Task2()
         {
