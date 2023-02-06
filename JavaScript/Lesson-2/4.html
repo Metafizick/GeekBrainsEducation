@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+<body>
+<!--
+Обязательное задание.
+
+Необходимо реализовать четыре функции, каждая функция должна принимать по два
+числа и выполнять одну из операций (каждая функция выполняет одну из них):
+1. Сложение
+2. Разность
+3. Умножение
+4. Деление
+
+Необходимо сделать так, чтобы функция вернула число, например выражение
+`console.log(sum(2, 6));` должно вывести число 8 в консоль (sum - функция
+сложения в данном примере, ваши названия функций могут отличаться).
+
+Округлять значения, которые возвращают функции не нужно, однако, обратите
+внимание на разность, функция должна вычесть из большего числа меньшее, либо
+вернуть 0, если числа равны.
+
+Функциям всегда передаются корректные числа, проверки на NaN, Infinity делать
+не нужно.
+
+Необходимо для всех функций прописать комментарии jsdoc https://jsdoc.app/.
+-->
+<script>
+    "use strict";
+    /**
+     * Функция sum возвращает сумму двух чисел
+     * @param {Number} firstNum Первое из складываемых чисел
+     * @param {Number} secomdNum Второе из складываемых чисел
+     * @returns {Number} Вернёт число, получившееся в результате суммы 2-х чисел
+     */
+    function sum(firstNum, secomdNum) {
+        return firstNum + secomdNum;
+    }
+    /**
+     * Функция diff возвращает разность двух чисел
+     * @param {Number} firstNum Первое число
+     * @param {Number} secomdNum Второе число
+     * @returns {Number} Вернёт число, получившееся в результате вычитания из 1-го числа 2-го, если 1-е больше 2-го, и наоборот 
+     */
+    function diff(firstNum, secomdNum) {
+        if (firstNum > secomdNum) {
+            return firstNum - secomdNum;
+        } else if (firstNum < secomdNum) {
+            return secomdNum - firstNum;
+        } else {
+            return 0;
+        }
+    }
+    /**
+     * Функция mult возвращает произведение двух чисел
+     * @param {Number} firstNum Первое из умножаемых чисел
+     * @param {Number} secomdNum Второе из умножаемых чисел
+     * @returns {Number} Вернёт число, получившееся в результате умножения 2-х чисел
+     */
+    function mult(firstNum, secomdNum) {
+        return firstNum * secomdNum;
+    }
+    /**
+     * Функция div возвращает результат деления двух чисел
+     * @param {Number} firstNum делимое
+     * @param {Number} secomdNum делитель
+     * @returns {Number} Вернёт число, получившееся в результате деления 2-х чисел
+     */
+    function div(firstNum, secomdNum) {
+        return firstNum / secomdNum;
+    }
+    console.log(sum(2, 6));
+    console.log(diff(2, 6));
+    console.log(mult(2, 6));
+    console.log(div(2, 6));
+</script>
+</body>
+</html>

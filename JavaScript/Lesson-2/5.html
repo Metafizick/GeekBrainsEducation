@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+<body>
+<!--
+Обязательное задание.
+
+Необходимо скопировать и вставить в данный скрипт все функции из 4 задания.
+Необходимо реализовать функцию:
+mathOperation(arg1, arg2, operation);
+Параметры:
+arg1 - первое число.
+arg2 - второе число.
+operation - строка, которая содержит один символ из: "+", "-", "*", "/".
+Функция mathOperation должна вернуть результат операции, который был передан в
+параметр operation для двух первых аргументов (arg1 и arg2).
+Функция mathOperation должна использовать для вычисления функции из 4 задания.
+
+Примеры вызова функции:
+console.log(mathOperation(5, 3, "+")); // 8
+console.log(mathOperation(5, 3, ":)")); // NaN
+
+Функции mathOperation всегда передаются корректные числа, проверки на NaN,
+Infinity делать не нужно, однако, в случае если был передан некорректный
+аргумент в параметр operation, необходимо вернуть NaN.
+
+Необходимо для всех функций прописать комментарии jsdoc https://jsdoc.app/.
+-->
+<script>
+  "use strict";
+    /**
+     * Функция sum возвращает сумму двух чисел
+     * @param {Number} firstNum Первое из складываемых чисел
+     * @param {Number} secomdNum Второе из складываемых чисел
+     * @returns {Number} Вернёт число, получившееся в результате суммы 2-х чисел
+     */
+    function sum(firstNum, secomdNum) {
+        return firstNum + secomdNum;
+    }
+    /**
+     * Функция diff возвращает разность двух чисел
+     * @param {Number} firstNum Первое число
+     * @param {Number} secomdNum Второе число
+     * @returns {Number} Вернёт число, получившееся в результате вычитания из 1-го числа 2-го, если 1-е больше 2-го, и наоборот 
+     */
+    function diff(firstNum, secomdNum) {
+        if (firstNum > secomdNum) {
+            return firstNum - secomdNum;
+        } else if (firstNum < secomdNum) {
+            return secomdNum - firstNum;
+        } else {
+            return 0;
+        }
+    }
+    /**
+     * Функция mult возвращает произведение двух чисел
+     * @param {Number} firstNum Первое из умножаемых чисел
+     * @param {Number} secomdNum Второе из умножаемых чисел
+     * @returns {Number} Вернёт число, получившееся в результате умножения 2-х чисел
+     */
+    function mult(firstNum, secomdNum) {
+        return firstNum * secomdNum;
+    }
+    /**
+     * Функция div возвращает результат деления двух чисел
+     * @param {Number} firstNum делимое
+     * @param {Number} secomdNum делитель
+     * @returns {Number} Вернёт число, получившееся в результате деления 2-х чисел
+     */
+    function div(firstNum, secomdNum) {
+        return firstNum / secomdNum;
+    }
+    /**
+     * Функция mathOperation возвращает результат выполнения одной из 4-х базовых арифметических 
+     * операций, сложение, вычитание, умножение или деление двух чисел в зависимости от введённого
+     * символа "+", "-", "*", "/" 
+     * @param {Number} firstNum Первое число, участвующее в операции
+     * @param {Number} secondNum Второе число, участвующее в операции
+     * @param {String} operation символ математической операции: "+", "-", "*", "/"
+     * @returns {Number} возвращает число - результат одной из выбранных математических операций
+     */
+    function mathOperation(firstNum, secondNum, operation) {
+        switch (operation) {
+            case '+':
+                return sum(firstNum, secondNum);
+                break;
+            case '-':
+                return diff(firstNum, secondNum);
+                break;
+            case '*':
+                return mult(firstNum, secondNum);
+                break;
+            case '/':
+                return div(firstNum, secondNum);
+                break;
+            default:
+                return NaN;
+        }
+    }
+    console.log(mathOperation(5, 3, "+"));
+    console.log(mathOperation(5, 3, "-"));
+    console.log(mathOperation(5, 3, "*"));
+    console.log(mathOperation(5, 3, "/"));
+    console.log(mathOperation(5, 3, ":)"));
+</script>
+</body>
+</html>
