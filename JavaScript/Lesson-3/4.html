@@ -44,11 +44,27 @@
     },
   ];
 
-  console.log(products[2].photos);
-  let newProducts = products.filter(function(product)  {
+  let newProducts = products.filter(product =>  {
       return product.photos?.length !== 0 && product.photos?.length !== undefined;     
   });
   console.log(newProducts);
+  products.sort((product1, product2) => { 
+    if (product1.price > product2.price) {
+      return 1;
+    }
+    if (product1.price < product2.price) {
+      return -1;
+    }
+    return 0;
+  });
+  /* Пробовал сделать таким образом 
+  products.sort((product1, product2) => {
+    product1.price - product2.price
+  });
+  почему-то не сортировалось вообще :(((
+  */    
+  console.log(products);
+
 </script>
 </body>
 </html>
