@@ -50,7 +50,21 @@
 <script>
   "use strict";
 
-  // Здесь пишем решение, данный комментарий необходимо стереть.
+  function PostES5(name, text, dateOfChange) {
+    this.name = name;
+    this.text = text;
+    const dateNow = new Date();
+    this.dateOfChange = `${dateNow.toLocaleDateString()}` +` ` + `${dateNow.toLocaleTimeString()}`;
+  }
+  PostES5.prototype.edit = function (newText) {
+    this.text = newText;
+    const dateNow = new Date();
+    this.dateOfChange = `${dateNow.toLocaleDateString()}` +` ` + `${dateNow.toLocaleTimeString()}`;
+  }
+  const firstPost = new PostES5(`Andrey`, `Posting`);
+  console.log(firstPost);
+  firstPost.edit(`another posting`);
+  console.log(firstPost);
 </script>
 </body>
 </html>
