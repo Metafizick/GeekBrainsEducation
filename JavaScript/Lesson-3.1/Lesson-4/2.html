@@ -64,32 +64,7 @@
   const firstPost = new PostES5(`Andrey`, `Posting`);
   console.log(firstPost);
   firstPost.edit(`another posting`);
-    console.log(firstPost);
-    class PostES6 {
-        // Конструктор принимает только имя автора и текст поста.
-        constructor(author, text) {
-            // Ставим нужные свойства новому объекту.
-            this.author = author;
-            this.text = text;
-            // Дата последнего изменения будет текущая, т.к. пост только что создался.
-            this.date = new Date();
-        }
-
-        // Метод edit будет принимать новый текст поста и сохранит его в объект.
-        edit(text) {
-            this.text = text;
-            // Не забываем изменить дату последнего обновления, так как только что
-            // изменили текст поста.
-            this.date = new Date();
-        }
-    }
-
-    const postES6 = new PostES6('Павел', 'Текст статьи');
-    console.log(postES6);
-    postES6.edit('Новый текст статьи');
-    console.log(postES6);
-
-  
+  console.log(firstPost);
 </script>
 </body>
 </html>
