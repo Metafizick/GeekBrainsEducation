@@ -25,12 +25,24 @@
    * параметр "n"
    */
   function descendingOrder(n) {
-
+    let arrayN = [];
+    while (n > 9) {
+      arrayN.push(n % 10);
+      n = Math.trunc(n/10);
+    }
+    arrayN.push(n);
+    arrayN.sort((a,b) => b-a);
+    let resultN = arrayN[arrayN.length-1];
+    for (let i = 1; i < arrayN.length; i++) {
+      resultN += arrayN[arrayN.length-i-1] * (Math.pow(10, i));
+    }
+    return resultN;
   }
 
   console.log(descendingOrder(42145)); // 54421
   console.log(descendingOrder(145263)); // 654321
   console.log(descendingOrder(123456789)); // 987654321
+  console.log(descendingOrder(68469846984698))
 </script>
 </body>
 </html>
