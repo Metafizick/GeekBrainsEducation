@@ -1,4 +1,6 @@
+using CardStorageService.Data;
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.EntityFrameworkCore;
 using NLog.Web;
 
 namespace CardStorageService
@@ -28,6 +30,13 @@ namespace CardStorageService
 
             }).UseNLog(new NLogAspNetCoreOptions() { RemoveLoggerFactoryFilter = true });
 
+            #endregion
+
+            #region Configure EF DBContext Service (CardStorageService Database)
+            builder.Services.AddDbContext<CardStorageServiceDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration["Settings:DatabaseOptions:ConnectionString"]);
+            });
             #endregion
 
             builder.Services.AddControllers();

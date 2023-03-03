@@ -23,7 +23,7 @@ namespace CardStorageService.Controllers
 
         #endregion
 
-        #region Publoc Methods
+        #region Public Methods
         [HttpGet("getAll")]
         public IActionResult GetByClientId(string clientId) 
         {
