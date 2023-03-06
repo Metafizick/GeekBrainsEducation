@@ -1,6 +1,8 @@
-﻿namespace CardStorageService.Services
+﻿using CardStorageService.Data;
+
+namespace CardStorageService.Services
 {
-    public interface IClientRepositoryServicee
+    public interface IClientRepositoryService : IRepository<Client, int>
     {
     }
 }

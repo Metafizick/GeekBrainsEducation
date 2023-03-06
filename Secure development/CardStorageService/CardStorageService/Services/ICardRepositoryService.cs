@@ -1,6 +1,9 @@
-﻿namespace CardStorageService.Services
+﻿using CardStorageService.Data;
+
+namespace CardStorageService.Services
 {
-    public interface ICardRepositoryService
+    public interface ICardRepositoryService : IRepository<Card, string>
     {
+        IList<Card> GetByClientId(string id);
     }
 }
