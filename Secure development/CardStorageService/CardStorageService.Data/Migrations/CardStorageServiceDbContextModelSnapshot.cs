@@ -24,20 +24,20 @@ namespace CardStorageService.Data.Migrations
 
             modelBuilder.Entity("CardStorageService.Data.Card", b =>
                 {
-                    b.Property<int>("ClientId")
+                    b.Property<Guid>("CardId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CVV2")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<Guid>("CardId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("CardNo")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("ExpDate")
                         .HasColumnType("datetime2");
@@ -46,7 +46,9 @@ namespace CardStorageService.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("ClientId");
+                    b.HasKey("CardId");
+
+                    b.HasIndex("ClientId");
 
                     b.ToTable("Cards");
                 });

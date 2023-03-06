@@ -1,4 +1,5 @@
 using CardStorageService.Data;
+using CardStorageService.Models;
 using CardStorageService.Services;
 using CardStorageService.Services.Implementations;
 using Microsoft.AspNetCore.HttpLogging;
@@ -12,6 +13,14 @@ namespace CardStorageService
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            #region Configure Options Services
+
+            builder.Services.Configure<DatabaseOptions>(options =>
+            {
+                builder.Configuration.GetSection("Settings:DatabaseOptions").Bind(options);
+            });
+            #endregion
 
             #region Logging Service
 

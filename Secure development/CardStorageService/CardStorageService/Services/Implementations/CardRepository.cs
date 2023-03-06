@@ -1,4 +1,7 @@
 ﻿using CardStorageService.Data;
+using CardStorageService.Models;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Options;
 
 namespace CardStorageService.Services.Implementations
 {
@@ -7,18 +10,28 @@ namespace CardStorageService.Services.Implementations
         #region Services
         private readonly CardStorageServiceDbContext _context;
         private readonly ILogger<CardRepository> _logger;
+        private readonly IOptions<DatabaseOptions> _databaseOptions;
         #endregion
 
         #region Constructors
-        public CardRepository(CardStorageServiceDbContext context, ILogger<CardRepository> logger)
+        public CardRepository(CardStorageServiceDbContext context, ILogger<CardRepository> logger, IOptions<DatabaseOptions> databaseOptions)
         {
             _context = context;
             _logger = logger;
+            _databaseOptions = databaseOptions;
         }
 
         public string Create(Card data)
         {
-            throw new NotImplementedException();
+            var client = _context.Clients.FirstOrDefault(client => client.ClientId == data.ClientId);
+            if (client == null)
+                throw new Exception("Client not found");
+
+            _context.Cards.Add(data);
+
+            _context.SaveChanges();
+
+            return data.CardId.ToString();
         }
 
         public int Delete(string id)
@@ -33,7 +46,28 @@ namespace CardStorageService.Services.Implementations
 
         public IList<Card> GetByClientId(string id)
         {
-            throw new NotImplementedException();
+            List<Card> cards = new List<Card>();
+            using (SqlConnection sqlConnection = new SqlConnection(_databaseOptions.Value.ConnectionString))
+            {
+                sqlConnection.Open();
+                using (var sqlComand = new SqlCommand(String.Format("select * from cards where ClientId = {0}", id),sqlConnection))
+                {
+                    var reader = sqlComand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        cards.Add(new Card
+                        {
+                            CardId = new Guid(reader["CardId"].ToString()),
+                            CardNo = reader["CardNo"]?.ToString(),
+                            Name = reader["Name"]?.ToString(),
+                            CVV2 = reader["CVV2"]?.ToString(),
+                            ExpDate = Convert.ToDateTime(reader["ExpDate"])
+                        });
+                    }
+                }
+            }
+            return cards;
+            //return _context.Cards.Where(card => card.ClientId == id).ToList();
         }
 
         public Card GetById(string id)

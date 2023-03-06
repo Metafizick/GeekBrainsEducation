@@ -30,8 +30,8 @@ namespace CardStorageService.Data.Migrations
                 name: "Cards",
                 columns: table => new
                 {
-                    ClientId = table.Column<int>(type: "int", nullable: false),
                     CardId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClientId = table.Column<int>(type: "int", nullable: false),
                     CardNo = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     CVV2 = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
@@ -39,7 +39,7 @@ namespace CardStorageService.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cards", x => x.ClientId);
+                    table.PrimaryKey("PK_Cards", x => x.CardId);
                     table.ForeignKey(
                         name: "FK_Cards_Clients_ClientId",
                         column: x => x.ClientId,
@@ -47,6 +47,11 @@ namespace CardStorageService.Data.Migrations
                         principalColumn: "ClientId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cards_ClientId",
+                table: "Cards",
+                column: "ClientId");
         }
 
         /// <inheritdoc />

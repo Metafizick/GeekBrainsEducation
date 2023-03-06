@@ -12,9 +12,10 @@ namespace CardStorageService.Data
     public class Card
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid CardId { get; set; }
+
         [ForeignKey(nameof(Client))]
         public int ClientId { get; set; }
-        public Guid CardId { get; set; }
         [Column]
         [StringLength(20)]
         public string? CardNo { get; set; }

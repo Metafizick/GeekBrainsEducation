@@ -6,6 +6,6 @@
         public string CardNo { get; set; }
         public string? Name { get; set; }
         public string? CVV2 { get; set; }
-        public DateTime ExpDate { get; }
+        public DateTime ExpDate { get; set; }
     }
 }
