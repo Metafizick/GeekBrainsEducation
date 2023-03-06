@@ -16,10 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Implementations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CardStorageService.Data\CardStorageService.Data.csproj" />
   </ItemGroup>
 
