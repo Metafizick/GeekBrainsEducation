@@ -30,13 +30,13 @@ namespace JwtSample
                 if (string.CompareOrdinal(pair.Key, user) == 0 &&
                     string.CompareOrdinal(pair.Value, password) == 0)
                 {  
-                    return GenerateJwtTokeb(i);
+                    return GenerateJwtToken(i);
                 }
                 i++;
             }
             return string.Empty;
         }
-        public string GenerateJwtTokeb(int id)
+        public string GenerateJwtToken(int id)
         {
             JwtSecurityTokenHandler jwtSecurityTokenHandler= new JwtSecurityTokenHandler();
             byte[] key = Encoding.ASCII.GetBytes(SecretCode);
