@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,7 +31,7 @@ namespace JwtSample
             {
                 if (string.CompareOrdinal(pair.Key, user) == 0 &&
                     string.CompareOrdinal(pair.Value, password) == 0)
-                {  
+                {
                     return GenerateJwtToken(i);
                 }
                 i++;
@@ -38,8 +40,17 @@ namespace JwtSample
         }
         public string GenerateJwtToken(int id)
         {
-            JwtSecurityTokenHandler jwtSecurityTokenHandler= new JwtSecurityTokenHandler();
+            JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             byte[] key = Encoding.ASCII.GetBytes(SecretCode);
+            SecurityTokenDescriptor securityTokenDescriptor = new SecurityTokenDescriptor();
+            securityTokenDescriptor.Expires = DateTime.UtcNow.AddMinutes(15);
+            securityTokenDescriptor.SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
+            securityTokenDescriptor.Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]{
+                new Claim(ClaimTypes.NameIdentifier, id.ToString())
+            });
+
+            SecurityToken securityToken = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
+            return jwtSecurityTokenHandler.WriteToken(securityToken);
         }
     }
 }

@@ -4,7 +4,14 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine("Enter user bame: ");
+            string userName = Console.ReadLine();
+            Console.WriteLine("Enter user password: ");
+            string userPassword = Console.ReadLine();
+            UserService userService = new UserService();
+            string token = userService.Authenticate(userName, userPassword);
+            Console.WriteLine(token);
+            Console.ReadKey(true);
         }
     }
 }
