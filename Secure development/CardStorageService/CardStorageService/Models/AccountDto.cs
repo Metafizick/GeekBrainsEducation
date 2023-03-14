@@ -4,7 +4,7 @@
     {
         public int AccountId { get; set; }
 
-        public string Email { get; set; }
+        public string EMail { get; set; }
 
         public bool Locked { get; set; }
         
