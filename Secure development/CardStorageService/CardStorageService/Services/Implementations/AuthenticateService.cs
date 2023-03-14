@@ -15,7 +15,7 @@ namespace CardStorageService.Services.Implementations
         #region Services
         private readonly IServiceScopeFactory _serviceScopeFactory;
         #endregion
-        private const string SecretCode = "XN32Z5{6y@t8j%TE#A";
+        public const string SecretKey = "XN32Z5{6y@t8j%TE#A";
         private readonly Dictionary<string, SessionInfo> _sessions = 
             new Dictionary<string, SessionInfo>();
         public AuthenticateService(IServiceScopeFactory serviceScopeFactory)
@@ -131,7 +131,7 @@ namespace CardStorageService.Services.Implementations
         private string CreateSessionToken(Account account)
         {
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-            byte[] key = Encoding.ASCII.GetBytes(SecretCode);
+            byte[] key = Encoding.ASCII.GetBytes(SecretKey);
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(
