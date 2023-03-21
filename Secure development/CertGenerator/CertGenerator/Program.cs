@@ -37,6 +37,15 @@ namespace CertGenerator
 
                             break;
                         case 2:
+                            int counter = 0;
+                            CertificateExplorerProvider certificateExplorerProvider = new CertificateExplorerProvider(true);
+                            certificateExplorerProvider.LoadCertificates();
+                            foreach (var certificate in certificateExplorerProvider.Certificates)
+                            {
+                                Console.WriteLine($"{counter++} >>> {certificate}");
+                            }
+                            Console.Write("Укажите номер корневого сертификата");
+                            Console.ReadKey();
                             break;
                         default:
                             Console.WriteLine("Некорректный номер подпрограммы. Пожалуйста, повторите ввод");
