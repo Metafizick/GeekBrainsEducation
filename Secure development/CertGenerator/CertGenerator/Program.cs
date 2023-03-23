@@ -45,6 +45,16 @@ namespace CertGenerator
                                 Console.WriteLine($"{counter++} >>> {certificate}");
                             }
                             Console.Write("Укажите номер корневого сертификата");
+                            CertificateConfiguration addCertificateConfiguration = new CertificateConfiguration
+                            {
+                                RootCertificate = certificateExplorerProvider.Certificates[int.Parse(Console.ReadLine())].X509Certificate2,
+                                CertName = "IT Depart",
+                                OutFolder = @"D:\cert",
+                                Password = "12345678",
+                                Certduration = 1
+                            };
+                            CertificateGenerationProvider certificateGenerationProvider2 = new CertificateGenerationProvider();
+                            certificateGenerationProvider2.GenerateCertificate(addCertificateConfiguration);
                             Console.ReadKey();
                             break;
                         default:
