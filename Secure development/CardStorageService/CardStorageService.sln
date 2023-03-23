@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardStorageService.Data", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JwtSample", "JwtSample\JwtSample.csproj", "{601B82B4-B666-4291-B77C-4CE047952066}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasswordUtilsClient", "PasswordUtilsClient\PasswordUtilsClient.csproj", "{5FADDF61-0B5C-4C19-A200-0CE745B1CC42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PasswordUtilsClient", "PasswordUtilsClient\PasswordUtilsClient.csproj", "{5FADDF61-0B5C-4C19-A200-0CE745B1CC42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardStorageClient", "CardStorageClient\CardStorageClient.csproj", "{5DD2ED75-9F30-481D-B15F-F6EB11936AB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{5FADDF61-0B5C-4C19-A200-0CE745B1CC42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FADDF61-0B5C-4C19-A200-0CE745B1CC42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FADDF61-0B5C-4C19-A200-0CE745B1CC42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DD2ED75-9F30-481D-B15F-F6EB11936AB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DD2ED75-9F30-481D-B15F-F6EB11936AB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DD2ED75-9F30-481D-B15F-F6EB11936AB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DD2ED75-9F30-481D-B15F-F6EB11936AB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
