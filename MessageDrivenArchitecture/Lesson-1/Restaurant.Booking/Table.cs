@@ -10,20 +10,23 @@ namespace Restaurant.Booking
     {
         public State State { get; private set; }
         public int SeatsCount { get; }
-        public int Id { get; }  
-        //private Random Random { get; }
+        public int Id { get; }
+        private static readonly Random Random = new();
         public Table(int id) 
         { 
             Id = id;
             State = State.Free;
-            SeatsCount = 2; //Random.Next(2, 5);
+            SeatsCount = Random.Next(2, 5);
         }
         public bool SetState(State state)
         {
-            if (state == State)
-                return false;
-            State = state;
-            return true;
+            lock (this)
+            {
+                if (state == State)
+                    return false;
+                State = state;
+                return true;
+            }
         }
     }
 }
