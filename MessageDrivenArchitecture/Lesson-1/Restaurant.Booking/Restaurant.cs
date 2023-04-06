@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Messaging1;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,9 @@ namespace Restaurant.Booking
 {
     public class Restaurant
     {
-        private readonly List<Table> _tables = new(); 
+        private readonly List<Table> _tables = new();
+        private readonly Producer _producer =
+            new("BookingNotification", "localhost:15672");
         public Restaurant() 
         {
             for (ushort i = 1; i <= 10; i++)
@@ -16,6 +19,7 @@ namespace Restaurant.Booking
                 _tables.Add(new Table(i)); 
             }
         }
+        /*
         public void BookFreeTable(int countOfPerson)
         {
             Console.WriteLine("Добрый день! Подождите секунду я подберу столик и подтвержу вашу бронь, оставайтесь на линии");
@@ -26,7 +30,7 @@ namespace Restaurant.Booking
             Console.WriteLine(table is null
                 ? $"К сожалению сейчас все столики заняты"
                 : $"Готово! Ваш столик номер {table.Id}");
-        }
+        }*/
         public void BookFreeTableAsync(int countOfPerson)
         {
             Console.WriteLine("Добрый день! Подождите секунду я подберу столик и подтвержу вашу бронь, вам придёт уведомление");
@@ -36,10 +40,11 @@ namespace Restaurant.Booking
                                                         && t.State == State.Free);
                 await Task.Delay(1000*5);
                 table?.SetState(State.Booked);
-                Console.WriteLine(table is null
-                ? $"К сожалению сейчас все столики заняты"
-                : $"Готово! Ваш столик номер {table.Id}");
+                _producer.Send(table is null
+                ? $"Уведомление! К сожалению сейчас все столики заняты"
+                : $"Уведомление! Готово! Ваш столик номер {table.Id}");
                 Console.WriteLine($"Process in thread {Thread.CurrentThread.ManagedThreadId}");
+                Console.WriteLine(table.Id.ToString() );
             });
         }
     }

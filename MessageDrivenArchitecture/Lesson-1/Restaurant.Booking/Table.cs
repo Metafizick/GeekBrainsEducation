@@ -12,7 +12,7 @@ namespace Restaurant.Booking
         public int SeatsCount { get; }
         public int Id { get; }
         private static readonly Random Random = new();
-        private static readonly object _lock = new();
+        private readonly object _lock = new object();
         public Table(int id) 
         { 
             Id = id;
