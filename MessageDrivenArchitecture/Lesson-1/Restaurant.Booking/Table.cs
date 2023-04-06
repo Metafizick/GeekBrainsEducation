@@ -12,6 +12,7 @@ namespace Restaurant.Booking
         public int SeatsCount { get; }
         public int Id { get; }
         private static readonly Random Random = new();
+        private static readonly object _lock = new();
         public Table(int id) 
         { 
             Id = id;
@@ -20,7 +21,7 @@ namespace Restaurant.Booking
         }
         public bool SetState(State state)
         {
-            lock (this)
+            lock (_lock)
             {
                 if (state == State)
                     return false;

@@ -22,6 +22,7 @@ namespace Restaurant.Booking
             var table = _tables.FirstOrDefault(t => t.SeatsCount > countOfPerson
                                                         && t.State == State.Free );
             Thread.Sleep(1000*5);
+            table?.SetState(State.Booked);
             Console.WriteLine(table is null
                 ? $"К сожалению сейчас все столики заняты"
                 : $"Готово! Ваш столик номер {table.Id}");
@@ -38,6 +39,7 @@ namespace Restaurant.Booking
                 Console.WriteLine(table is null
                 ? $"К сожалению сейчас все столики заняты"
                 : $"Готово! Ваш столик номер {table.Id}");
+                Console.WriteLine($"Process in thread {Thread.CurrentThread.ManagedThreadId}");
             });
         }
     }
