@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Messaging1
+namespace Messaging
 {
     public class Consumer : IDisposable
     {

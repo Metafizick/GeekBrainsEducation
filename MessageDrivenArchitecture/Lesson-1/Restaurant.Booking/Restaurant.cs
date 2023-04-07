@@ -1,4 +1,4 @@
-﻿using Messaging1;
+﻿using Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace Restaurant.Booking
     {
         private readonly List<Table> _tables = new();
         private readonly Producer _producer =
-            new("BookingNotification", "localhost:15672");
+            new("BookingNotification", "localhost");
         public Restaurant() 
         {
             for (ushort i = 1; i <= 10; i++)

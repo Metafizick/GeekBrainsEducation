@@ -9,6 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Booking", "Resta
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Notification", "Restaurant.Notification\Restaurant.Notification.csproj", "{0275BCBA-2BA6-4178-B1BF-175CFD0D84EF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0D268146-0443-46EB-9D64-9E05CE80A1BA} = {0D268146-0443-46EB-9D64-9E05CE80A1BA}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging", "Messaging1\Messaging.csproj", "{0D268146-0443-46EB-9D64-9E05CE80A1BA}"
 EndProject
