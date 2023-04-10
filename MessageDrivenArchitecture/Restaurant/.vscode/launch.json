@@ -1,0 +1,48 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+            "name": "Start Booking",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "Build Booking",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/Restaurant.Booking/bin/Debug/net6.0/Restaurant.Booking.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Restaurant.Booking",
+            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+            "console": "externalTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Start Kitchen",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "Build Kitchen",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/Restaurant.Kitchen/bin/Debug/net6.0/Restaurant.Kitchen.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Restaurant.Kitchen",
+            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+            "console": "externalTerminal",
+            "stopAtEntry": false            
+        },
+        {
+            "name": "Start Notifications",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "Build Notifications",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/Restaurant.Notifications/bin/Debug/net6.0/Restaurant.Notifications.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Restaurant.Notifications",
+            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+            "console": "externalTerminal",
+            "stopAtEntry": false            
+        }
+    ]
+}
